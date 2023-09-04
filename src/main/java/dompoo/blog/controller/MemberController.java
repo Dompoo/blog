@@ -6,9 +6,11 @@ import dompoo.blog.dto.MemberSaveRequestDto;
 import dompoo.blog.dto.MemberUpdataRequestDto;
 import dompoo.blog.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/blog")
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -44,5 +47,11 @@ public class MemberController {
             @RequestBody MemberUpdataRequestDto dto
     ) {
         return memberService.update(memberId, dto);
+    }
+
+    @GetMapping("/securitytest")
+    public ResponseEntity<String> test() {
+        log.info("[Controller] security");
+        return ResponseEntity.ok("token");
     }
 }
