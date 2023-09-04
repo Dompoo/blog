@@ -34,6 +34,11 @@ public class Writing {
     @ManyToOne
     private Member member;
 
+    public Writing(String subject, String content) {
+        this.subject = subject;
+        this.content = content;
+    }
+
     //연관관계 편의 메서드
     public void setMember(Member member) {
         this.member = member;
