@@ -8,6 +8,7 @@ import dompoo.blog.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +20,22 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 멤버 추가 메서드
      * 유저 이름이 중복될 경우 null을 리턴한다.
      */
     public MemberDto join(MemberSaveRequestDto dto) {
-        if (memberRepository.findMemberByUsername(dto.getUsername()).isPresent()) {
-            return null; // 유저이름이 중복될 경우
-        }
-        Member savedMember = memberRepository.save(new Member(dto.getUsername(), dto.getPassword()));
+//        if (memberRepository.findMemberByUsername(dto.getUsername()).isPresent()) {
+//            return null; // 유저이름이 중복될 경우
+//        }
+
+
+        Member member = new Member(dto.getUsername(), passwordEncoder.encode(dto.getPassword()));
+
+
+        Member savedMember = memberRepository.save(member);
         return new MemberDto(savedMember);
     }
 
