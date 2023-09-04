@@ -33,4 +33,10 @@ public class Writing {
 
     @ManyToOne
     private Member member;
+
+    //연관관계 편의 메서드
+    public void setMember(Member member) {
+        this.member = member;
+        member.getWriting().add(this);
+    }
 }
