@@ -1,14 +1,17 @@
 package dompoo.blog.comment;
 
+import dompoo.blog.member.Member;
 import dompoo.blog.writing.Writing;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Comment {
 
     @Id
@@ -22,5 +25,8 @@ public class Comment {
     private LocalDateTime createDate;
 
     @ManyToOne
-    private Writing comment;
+    private Writing writing;
+
+    @ManyToOne
+    private Member member;
 }
