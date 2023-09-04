@@ -1,7 +1,11 @@
 package dompoo.blog.repository;
 
-import org.springframework.stereotype.Repository;
+import dompoo.blog.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class MemberRepository {
+import java.util.Optional;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
+
+    Optional<Member> findMemberByUsername(String username);
 }
