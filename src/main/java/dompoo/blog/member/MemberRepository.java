@@ -1,6 +1,5 @@
-package dompoo.blog.repository;
+package dompoo.blog.member;
 
-import dompoo.blog.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

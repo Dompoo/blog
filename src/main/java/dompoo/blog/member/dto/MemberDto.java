@@ -1,6 +1,6 @@
-package dompoo.blog.dto;
+package dompoo.blog.member.dto;
 
-import dompoo.blog.domain.Member;
+import dompoo.blog.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

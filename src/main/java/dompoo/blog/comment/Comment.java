@@ -1,5 +1,6 @@
-package dompoo.blog.domain;
+package dompoo.blog.comment;
 
+import dompoo.blog.writing.Writing;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,4 +1,4 @@
-package dompoo.blog.domain;
+package dompoo.blog.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

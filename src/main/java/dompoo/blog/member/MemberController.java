@@ -1,10 +1,8 @@
-package dompoo.blog.controller;
+package dompoo.blog.member;
 
-import dompoo.blog.domain.Member;
-import dompoo.blog.dto.MemberDto;
-import dompoo.blog.dto.MemberSaveRequestDto;
-import dompoo.blog.dto.MemberUpdataRequestDto;
-import dompoo.blog.service.MemberService;
+import dompoo.blog.member.dto.MemberDto;
+import dompoo.blog.member.dto.MemberSaveRequestDto;
+import dompoo.blog.member.dto.MemberUpdataRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -12,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

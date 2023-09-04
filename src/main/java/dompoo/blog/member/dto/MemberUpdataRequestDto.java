@@ -1,4 +1,4 @@
-package dompoo.blog.dto;
+package dompoo.blog.member.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,10 @@
-package dompoo.blog.service;
+package dompoo.blog.member;
 
-import dompoo.blog.domain.Member;
-import dompoo.blog.dto.MemberDto;
-import dompoo.blog.dto.MemberSaveRequestDto;
-import dompoo.blog.dto.MemberUpdataRequestDto;
-import dompoo.blog.repository.MemberRepository;
+import dompoo.blog.member.Member;
+import dompoo.blog.member.dto.MemberDto;
+import dompoo.blog.member.dto.MemberSaveRequestDto;
+import dompoo.blog.member.dto.MemberUpdataRequestDto;
+import dompoo.blog.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,10 +27,6 @@ public class MemberService {
      * 유저 이름이 중복될 경우 null을 리턴한다.
      */
     public MemberDto join(MemberSaveRequestDto dto) {
-//        if (memberRepository.findMemberByUsername(dto.getUsername()).isPresent()) {
-//            return null; // 유저이름이 중복될 경우
-//        }
-
 
         Member member = new Member(dto.getUsername(), passwordEncoder.encode(dto.getPassword()));
 
