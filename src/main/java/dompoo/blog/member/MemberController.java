@@ -1,8 +1,8 @@
 package dompoo.blog.member;
 
 import dompoo.blog.member.dto.MemberDto;
-import dompoo.blog.member.dto.MemberSaveRequestDto;
-import dompoo.blog.member.dto.MemberUpdataRequestDto;
+import dompoo.blog.member.dto.MemberSaveDto;
+import dompoo.blog.member.dto.MemberUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class MemberController {
 
     //멤버 추가
     @PutMapping("/members")
-    public MemberDto addMember(@RequestBody MemberSaveRequestDto dto) {
+    public MemberDto addMember(@RequestBody MemberSaveDto dto) {
         return memberService.join(dto);
     }
 
@@ -40,7 +40,7 @@ public class MemberController {
     @PostMapping("/members/{memberId}")
     public MemberDto updateMember(
             @PathVariable("memberId") Long memberId,
-            @RequestBody MemberUpdataRequestDto dto
+            @RequestBody MemberUpdateDto dto
     ) {
         return memberService.update(memberId, dto);
     }

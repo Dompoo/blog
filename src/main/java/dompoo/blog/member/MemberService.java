@@ -1,10 +1,8 @@
 package dompoo.blog.member;
 
-import dompoo.blog.member.Member;
 import dompoo.blog.member.dto.MemberDto;
-import dompoo.blog.member.dto.MemberSaveRequestDto;
-import dompoo.blog.member.dto.MemberUpdataRequestDto;
-import dompoo.blog.member.MemberRepository;
+import dompoo.blog.member.dto.MemberSaveDto;
+import dompoo.blog.member.dto.MemberUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,19 +17,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository repository;
     private final PasswordEncoder passwordEncoder;
 
     /**
      * 멤버 추가 메서드
      * 유저 이름이 중복될 경우 null을 리턴한다.
      */
-    public MemberDto join(MemberSaveRequestDto dto) {
+    public MemberDto join(MemberSaveDto dto) {
 
         Member member = new Member(dto.getUsername(), passwordEncoder.encode(dto.getPassword()));
 
 
-        Member savedMember = memberRepository.save(member);
+        Member savedMember = repository.save(member);
         return new MemberDto(savedMember);
     }
 
@@ -40,7 +38,7 @@ public class MemberService {
      * pageable을 받아 Page<>로 리턴한다.
      */
     public Page<MemberDto> findAll(Pageable pageable) {
-        return memberRepository.findAll(pageable)
+        return repository.findAll(pageable)
                 .map(MemberDto::new);
     }
 
@@ -49,7 +47,7 @@ public class MemberService {
      * id로 조회한다.
      */
     public MemberDto findOne(Long memberId) {
-        Optional<Member> findMember = memberRepository.findById(memberId);
+        Optional<Member> findMember = repository.findById(memberId);
         return findMember.map(MemberDto::new).orElse(null);
     }
 
@@ -59,9 +57,9 @@ public class MemberService {
      */
     public MemberDto update(
             Long memberId,
-            MemberUpdataRequestDto dto
+            MemberUpdateDto dto
     ) {
-        Optional<Member> findMember = memberRepository.findById(memberId);
+        Optional<Member> findMember = repository.findById(memberId);
         if (findMember.isEmpty()) {
             return null;
         }

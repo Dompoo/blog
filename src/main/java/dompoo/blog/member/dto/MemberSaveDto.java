@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MemberUpdataRequestDto {
+public class MemberSaveDto {
 
     private String username;
     private String password;
 
-    public MemberUpdataRequestDto(String username, String password) {
+    public MemberSaveDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
