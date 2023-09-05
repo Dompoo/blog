@@ -5,6 +5,6 @@
 <div th:text="${writing.getCreateDate()}"></div>
 <div th:text="${writing.getContent()}"></div>
 
-<form th:action="@{|/comment/list/${writing.getId()}|}" method="post">
+<form th:action="@{|/comment/list/${writing.getId()}|}" method="get">
     <input type="submit" value="댓글 보기">
 </form>
