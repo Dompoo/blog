@@ -3,6 +3,7 @@ package dompoo.blog.comment;
 import dompoo.blog.member.Member;
 import dompoo.blog.writing.Writing;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,9 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@NoArgsConstructor
 public class Comment {
 
     @Id
@@ -33,6 +34,10 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public Comment(String content) {
+        this.content = content;
+    }
 
     //연관관계 편의 메서드
     public void setMember(Member member) {
