@@ -5,6 +5,7 @@ import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
+import dompoo.blog.writing.dto.WritingUpdateDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ class WritingServiceTest {
         MemberSaveDto member1 = new MemberSaveDto("username", "password");
         MemberResponseDto memberDto = memberService.join(member1);
 
-        WritingSaveDto writingSaveDto = new WritingSaveDto("subject", "content");
-        WritingResponseDto writingResponseDto = writingService.saveWrite(writingSaveDto, memberDto.getId());
+        WritingSaveDto writingSaveDto = new WritingSaveDto("subject", "content", memberDto.getId());
+        WritingResponseDto writingResponseDto = writingService.saveWrite(writingSaveDto);
 
         assertThat(writingResponseDto.getSubject()).isEqualTo(writingSaveDto.getSubject());
         assertThat(writingResponseDto.getContent()).isEqualTo(writingSaveDto.getContent());
@@ -49,12 +50,12 @@ class WritingServiceTest {
         MemberSaveDto member = new MemberSaveDto("username", "password");
         MemberResponseDto memberDto = memberService.join(member);
 
-        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
-        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
-        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
-        writingService.saveWrite(writingSaveDto1, memberDto.getId());
-        writingService.saveWrite(writingSaveDto2, memberDto.getId());
-        writingService.saveWrite(writingSaveDto3, memberDto.getId());
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1", memberDto.getId());
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2", memberDto.getId());
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3", memberDto.getId());
+        writingService.saveWrite(writingSaveDto1);
+        writingService.saveWrite(writingSaveDto2);
+        writingService.saveWrite(writingSaveDto3);
 
         Page<WritingResponseDto> findWriting = writingService.findAll(PageRequest.of(0, 10));
 
@@ -62,16 +63,34 @@ class WritingServiceTest {
     }
 
     @Test
+    void findOne() {
+        MemberSaveDto member = new MemberSaveDto("username", "password");
+        MemberResponseDto memberDto = memberService.join(member);
+
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1", memberDto.getId());
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2", memberDto.getId());
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3", memberDto.getId());
+        WritingResponseDto writingResponseDto = writingService.saveWrite(writingSaveDto1);
+        writingService.saveWrite(writingSaveDto2);
+        writingService.saveWrite(writingSaveDto3);
+
+        WritingResponseDto findWriting = writingService.findOne(writingResponseDto.getId()).orElse(null);
+
+        assertThat(findWriting.getSubject()).isEqualTo(writingSaveDto1.getSubject());
+        assertThat(findWriting.getContent()).isEqualTo(writingSaveDto1.getContent());
+    }
+
+    @Test
     void findBySubject() {
         MemberSaveDto member = new MemberSaveDto("username", "password");
         MemberResponseDto memberDto = memberService.join(member);
 
-        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
-        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
-        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
-        writingService.saveWrite(writingSaveDto1, memberDto.getId());
-        writingService.saveWrite(writingSaveDto2, memberDto.getId());
-        writingService.saveWrite(writingSaveDto3, memberDto.getId());
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1", memberDto.getId());
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2", memberDto.getId());
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3", memberDto.getId());
+        writingService.saveWrite(writingSaveDto1);
+        writingService.saveWrite(writingSaveDto2);
+        writingService.saveWrite(writingSaveDto3);
 
         Page<WritingResponseDto> findWriting = writingService.findBySubject(PageRequest.of(0, 10), "subject1");
 
@@ -85,15 +104,33 @@ class WritingServiceTest {
         MemberResponseDto memberDto1 = memberService.join(member1);
         MemberResponseDto memberDto2 = memberService.join(member2);
 
-        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
-        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
-        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
-        writingService.saveWrite(writingSaveDto1, memberDto1.getId());
-        writingService.saveWrite(writingSaveDto2, memberDto1.getId());
-        writingService.saveWrite(writingSaveDto3, memberDto2.getId());
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1", memberDto1.getId());
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2", memberDto1.getId());
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3", memberDto2.getId());
+        writingService.saveWrite(writingSaveDto1);
+        writingService.saveWrite(writingSaveDto2);
+        writingService.saveWrite(writingSaveDto3);
 
         Page<WritingResponseDto> findWritings = writingService.findByUsername(PageRequest.of(0, 10), memberDto1.getUsername());
 
         assertThat(findWritings.getTotalElements()).isEqualTo(2);
+    }
+
+
+    @Test
+    void updateWriting() {
+        MemberSaveDto member = new MemberSaveDto("username1", "password");
+        MemberResponseDto memberDto = memberService.join(member);
+
+        WritingSaveDto writing = new WritingSaveDto("subject", "content", memberDto.getId());
+
+        WritingResponseDto writingResponseDto = writingService.saveWrite(writing);
+        WritingUpdateDto writingUpdateDto = new WritingUpdateDto(writingResponseDto.getId(), "new subject", "new content");
+        writingService.updateWriting(writingUpdateDto);
+
+        WritingResponseDto findWriting = writingService.findOne(writingResponseDto.getId()).orElse(null);
+
+        assertThat(findWriting.getSubject()).isEqualTo("new subject");
+        assertThat(findWriting.getContent()).isEqualTo("new content");
     }
 }
