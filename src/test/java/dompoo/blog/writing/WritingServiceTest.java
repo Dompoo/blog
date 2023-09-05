@@ -23,6 +23,8 @@ class WritingServiceTest {
     private final WritingService writingService;
     private final MemberService memberService;
 
+//    private PageRequest defaultPageRequest = PageRequest.of(0, 10);
+
     @Autowired
     public WritingServiceTest(WritingService writingService, MemberService memberService) {
         this.writingService = writingService;
@@ -54,8 +56,44 @@ class WritingServiceTest {
         writingService.saveWrite(writingSaveDto2, memberDto.getId());
         writingService.saveWrite(writingSaveDto3, memberDto.getId());
 
-        Page<WritingResponseDto> findAll = writingService.findAll(PageRequest.of(0, 10));
+        Page<WritingResponseDto> findWriting = writingService.findAll(PageRequest.of(0, 10));
 
-        assertThat(findAll.getTotalElements()).isEqualTo(3);
+        assertThat(findWriting.getTotalElements()).isEqualTo(3);
+    }
+
+    @Test
+    void findBySubject() {
+        MemberSaveDto member = new MemberSaveDto("username", "password");
+        MemberResponseDto memberDto = memberService.join(member);
+
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
+        writingService.saveWrite(writingSaveDto1, memberDto.getId());
+        writingService.saveWrite(writingSaveDto2, memberDto.getId());
+        writingService.saveWrite(writingSaveDto3, memberDto.getId());
+
+        Page<WritingResponseDto> findWriting = writingService.findBySubject(PageRequest.of(0, 10), "subject1");
+
+        assertThat(findWriting.getTotalElements()).isEqualTo(1);
+    }
+
+    @Test
+    void findByUsername() {
+        MemberSaveDto member1 = new MemberSaveDto("username1", "password");
+        MemberSaveDto member2 = new MemberSaveDto("username2", "password");
+        MemberResponseDto memberDto1 = memberService.join(member1);
+        MemberResponseDto memberDto2 = memberService.join(member2);
+
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
+        writingService.saveWrite(writingSaveDto1, memberDto1.getId());
+        writingService.saveWrite(writingSaveDto2, memberDto1.getId());
+        writingService.saveWrite(writingSaveDto3, memberDto2.getId());
+
+        Page<WritingResponseDto> findWritings = writingService.findByUsername(PageRequest.of(0, 10), memberDto1.getUsername());
+
+        assertThat(findWritings.getTotalElements()).isEqualTo(2);
     }
 }

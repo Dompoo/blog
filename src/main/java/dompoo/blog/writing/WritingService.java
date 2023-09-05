@@ -52,7 +52,7 @@ public class WritingService {
      */
     public Page<WritingResponseDto> findBySubject(Pageable pageable, String subject) {
 
-        Page<Writing> findWritings = writingRepository.findBySubjectContaining(subject);
+        Page<Writing> findWritings = writingRepository.findBySubjectContaining(pageable, subject);
         return findWritings.map(WritingResponseDto::new);
     }
 
@@ -65,10 +65,11 @@ public class WritingService {
         Optional<Member> findMember = memberRepository.findMemberByUsername(username);
 
         if (findMember.isEmpty()) {
+            log.info("findMember Empty!");
             return null;
         }
 
-        Page<Writing> findWritings = writingRepository.findByMember(findMember.get());
+        Page<Writing> findWritings = writingRepository.findByMember_Id(pageable, findMember.get().getId());
         return findWritings.map(WritingResponseDto::new);
     }
 
