@@ -5,13 +5,16 @@ import dompoo.blog.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Writing {
 
@@ -29,9 +32,10 @@ public class Writing {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "writing", cascade = CascadeType.REMOVE)
-    private List<Comment> comment;
+    private List<Comment> comment = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public Writing(String subject, String content) {
@@ -41,6 +45,9 @@ public class Writing {
 
     //연관관계 편의 메서드
     public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getWriting().remove(this);
+        }
         this.member = member;
         member.getWriting().add(this);
     }
