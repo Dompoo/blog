@@ -1,5 +1,6 @@
 package dompoo.blog.writing;
 
+import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.member.Member;
 import dompoo.blog.member.MemberRepository;
 import dompoo.blog.writing.dto.WritingResponseDto;
@@ -52,10 +53,10 @@ public class WritingService {
      * 글 Id 조회 메서드
      * writingId를 받아 Optional로 리턴한다.
      */
-    public Optional<WritingResponseDto> findOne(Long writingId) {
+    public WritingResponseDto findOne(Long writingId) {
 
-        Optional<Writing> findWriting = writingRepository.findById(writingId);
-        return findWriting.map(WritingResponseDto::new);
+        return new WritingResponseDto(writingRepository.findById(writingId)
+                .orElseThrow(() -> new DataNotFoundException("Writing Not Found")));
     }
 
     /**
