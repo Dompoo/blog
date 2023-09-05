@@ -1,12 +1,13 @@
 package dompoo.blog.writing;
 
 import dompoo.blog.comment.Comment;
+import dompoo.blog.etc.ModifiedDate;
 import dompoo.blog.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Writing {
+public class Writing extends ModifiedDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +29,8 @@ public class Writing {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createDate;
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 
     @OneToMany(mappedBy = "writing", cascade = CascadeType.REMOVE)
     private List<Comment> comment = new ArrayList<>();
