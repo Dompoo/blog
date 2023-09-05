@@ -30,4 +30,5 @@ public class WritingController {
         model.addAttribute("writing", findWriting);
         return "writing_detail";
     }
+
 }

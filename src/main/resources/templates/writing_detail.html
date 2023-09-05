@@ -4,3 +4,7 @@
 <div th:text="${writing.getUsername()}"></div>
 <div th:text="${writing.getCreateDate()}"></div>
 <div th:text="${writing.getContent()}"></div>
+
+<form th:action="@{|/comment/list/${writing.getId()}|}" method="post">
+    <input type="submit" value="댓글 보기">
+</form>
