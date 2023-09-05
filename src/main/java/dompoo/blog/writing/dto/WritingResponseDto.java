@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 public class WritingResponseDto {
 
     private Long id;
-    private String subject;
+    private String title;
     private String content;
     private LocalDateTime createDate;
     private String username;
 
     public WritingResponseDto(Writing writing) {
         this.id = writing.getId();
-        this.subject = writing.getSubject();
+        this.title = writing.getTitle();
         this.content = writing.getContent();
         this.createDate = writing.getCreateDate();
         this.username = writing.getMember().getUsername();

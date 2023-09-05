@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 public class WritingUpdateDto {
 
     private Long writingId;
-    private String subject;
+    private String title;
     private String content;
 
-    public WritingUpdateDto(Long writingId, String subject, String content) {
+    public WritingUpdateDto(Long writingId, String title, String content) {
         this.writingId = writingId;
-        this.subject = subject;
+        this.title = title;
         this.content = content;
     }
 }

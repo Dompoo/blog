@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 public class WritingSaveDto {
 
     private String subject;
-    private String content;
+    private String title;
     private Long memberId;
 
-    public WritingSaveDto(String subject, String content, Long memberId) {
-        this.subject = subject;
-        this.content = content;
+    public WritingSaveDto(String title, String content, Long memberId) {
+        this.subject = title;
+        this.title = content;
         this.memberId = memberId;
     }
 }

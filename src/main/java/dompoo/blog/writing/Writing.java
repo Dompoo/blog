@@ -22,8 +22,8 @@ public class Writing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 200)
-    private String subject;
+    @Column(length = 30)
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -38,8 +38,8 @@ public class Writing {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Writing(String subject, String content) {
-        this.subject = subject;
+    public Writing(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 

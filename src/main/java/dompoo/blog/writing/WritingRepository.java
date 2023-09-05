@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface WritingRepository extends JpaRepository<Writing, Long> {
 
-    Page<Writing> findBySubjectContaining(Pageable pageable, String subject);
+    Page<Writing> findByTitleContaining(Pageable pageable, String title);
 
     Page<Writing> findByMember_Id(Pageable pageable, Long memberId);
 }

@@ -25,13 +25,13 @@ public class WritingService {
 
     /**
      * 글 추가 메서드
-     * subject, content, memberId를 받아 연관관계 매핑 후 저장한다.
+     * title, content, memberId를 받아 연관관계 매핑 후 저장한다.
      */
     public WritingResponseDto saveWrite(WritingSaveDto dto) {
 
         Member findMember = memberRepository.findById(dto.getMemberId()).orElse(null);
 
-        Writing writing = new Writing(dto.getSubject(), dto.getContent());
+        Writing writing = new Writing(dto.getSubject(), dto.getTitle());
         writing.setMember(findMember);
 
         Writing saveWriting = writingRepository.save(writing);
@@ -60,11 +60,11 @@ public class WritingService {
 
     /**
      * 글 제목 조회 메서드
-     * Pageable, subject를 받아 Page<>로 리턴한다.
+     * Pageable, title을 받아 Page<>로 리턴한다.
      */
-    public Page<WritingResponseDto> findBySubject(Pageable pageable, String subject) {
+    public Page<WritingResponseDto> findBySubject(Pageable pageable, String title) {
 
-        Page<Writing> findWritings = writingRepository.findBySubjectContaining(pageable, subject);
+        Page<Writing> findWritings = writingRepository.findByTitleContaining(pageable, title);
         return findWritings.map(WritingResponseDto::new);
     }
 
@@ -87,7 +87,7 @@ public class WritingService {
 
     /**
      * 글 수정 메서드
-     * id, subject, content를 받아 subject, content를 수정한다.
+     * id, title, content를 받아 title, content를 수정한다.
      */
     public WritingResponseDto updateWriting(WritingUpdateDto dto) {
         Optional<Writing> findWriting = writingRepository.findById(dto.getWritingId());
@@ -97,7 +97,7 @@ public class WritingService {
         }
 
         Writing writing = findWriting.get();
-        writing.setSubject(dto.getSubject());
+        writing.setTitle(dto.getTitle());
         writing.setContent(dto.getContent());
 
         return new WritingResponseDto(writing);
