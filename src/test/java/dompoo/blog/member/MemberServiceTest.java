@@ -1,6 +1,6 @@
 package dompoo.blog.member;
 
-import dompoo.blog.member.dto.MemberDto;
+import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.dto.MemberUpdateDto;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class MemberServiceTest {
         memberService.join(member1);
         memberService.join(member2);
 
-        Page<MemberDto> findMembers = memberService.findAll(PageRequest.of(0, 10));
+        Page<MemberResponseDto> findMembers = memberService.findAll(PageRequest.of(0, 10));
 
         assertThat(findMembers.getTotalElements()).isEqualTo(2);
     }
@@ -50,9 +50,9 @@ class MemberServiceTest {
     @Test
     void findOne() {
         MemberSaveDto member = new MemberSaveDto("member1", "password1");
-        MemberDto saveMember = memberService.join(member);
+        MemberResponseDto saveMember = memberService.join(member);
 
-        MemberDto findMember = memberService.findOne(saveMember.getId());
+        MemberResponseDto findMember = memberService.findOne(saveMember.getId());
 
         assertThat(findMember.getId()).isEqualTo(saveMember.getId());
     }
@@ -60,7 +60,7 @@ class MemberServiceTest {
     @Test
     void update() {
         MemberSaveDto member = new MemberSaveDto("member1", "password1");
-        MemberDto saveMember = memberService.join(member);
+        MemberResponseDto saveMember = memberService.join(member);
 
         memberService.update(saveMember.getId(), new MemberUpdateDto("updateName", "updatePassword"));
         Member findMember = memberRepository.findById(saveMember.getId()).get();

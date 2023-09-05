@@ -1,6 +1,6 @@
 package dompoo.blog.member;
 
-import dompoo.blog.member.dto.MemberDto;
+import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.dto.MemberUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -21,24 +21,24 @@ public class MemberController {
 
     //멤버 추가
     @PutMapping("/members")
-    public MemberDto addMember(@RequestBody MemberSaveDto dto) {
+    public MemberResponseDto addMember(@RequestBody MemberSaveDto dto) {
         return memberService.join(dto);
     }
 
     //멤버 전체 조회
     @GetMapping("/members")
-    public Page<MemberDto> findMembers(@PageableDefault(size = 15) Pageable pageable) {
+    public Page<MemberResponseDto> findMembers(@PageableDefault(size = 15) Pageable pageable) {
         return memberService.findAll(pageable);
     }
 
     //id로 멤버 단건 조회
     @GetMapping("/members/{memberId}")
-    public MemberDto findMember(@PathVariable("memberId") Long memberId) {
+    public MemberResponseDto findMember(@PathVariable("memberId") Long memberId) {
         return memberService.findOne(memberId);
     }
 
     @PostMapping("/members/{memberId}")
-    public MemberDto updateMember(
+    public MemberResponseDto updateMember(
             @PathVariable("memberId") Long memberId,
             @RequestBody MemberUpdateDto dto
     ) {

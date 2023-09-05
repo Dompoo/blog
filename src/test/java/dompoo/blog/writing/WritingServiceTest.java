@@ -1,7 +1,7 @@
 package dompoo.blog.writing;
 
 import dompoo.blog.member.MemberService;
-import dompoo.blog.member.dto.MemberDto;
+import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
@@ -30,7 +30,7 @@ class WritingServiceTest {
     @Test
     void saveWrite() {
         MemberSaveDto member1 = new MemberSaveDto("username", "password");
-        MemberDto memberDto = memberService.join(member1);
+        MemberResponseDto memberDto = memberService.join(member1);
 
         WritingSaveDto writingSaveDto = new WritingSaveDto("subject", "content");
         WritingResponseDto writingResponseDto = writingService.saveWrite(writingSaveDto, memberDto.getId());

@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MemberDto {
+public class MemberResponseDto {
 
     private Long id;
     private String username;
 
-    public MemberDto(Member member) {
+    public MemberResponseDto(Member member) {
         this.id = member.getId();
         this.username = member.getUsername();
     }
