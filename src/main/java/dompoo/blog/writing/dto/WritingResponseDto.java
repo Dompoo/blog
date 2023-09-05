@@ -19,7 +19,7 @@ public class WritingResponseDto {
     public WritingResponseDto(Writing writing) {
         this.id = writing.getId();
         this.subject = writing.getSubject();
-        this.content = writing.getSubject();
+        this.content = writing.getContent();
         this.createDate = writing.getCreateDate();
         this.username = writing.getMember().getUsername();
     }
