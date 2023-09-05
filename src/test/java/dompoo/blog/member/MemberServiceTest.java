@@ -16,10 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 class MemberServiceTest {
 
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
+
     @Autowired
-    private MemberService memberService;
-    @Autowired
-    private MemberRepository memberRepository;
+    public MemberServiceTest(MemberService memberService, MemberRepository memberRepository) {
+        this.memberService = memberService;
+        this.memberRepository = memberRepository;
+    }
 
     @Test
     void join() {
