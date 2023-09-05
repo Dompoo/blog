@@ -13,14 +13,14 @@ public class CommentResponseDto {
     private Long id;
     private String content;
     private LocalDateTime createDate;
-    private Long memberId;
-    private Long writingId;
+    private String username;
+    private String writingTitle;
 
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.createDate = comment.getCreateDate();
-        this.memberId = comment.getMember().getId();
-        this.writingId = comment.getWriting().getId();
+        this.username = comment.getMember().getUsername();
+        this.writingTitle = comment.getWriting().getTitle();
     }
 }
