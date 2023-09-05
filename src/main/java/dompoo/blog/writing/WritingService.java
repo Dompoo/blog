@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,6 +43,32 @@ public class WritingService {
     public Page<WritingResponseDto> findAll(Pageable pageable) {
 
         Page<Writing> findWritings = writingRepository.findAll(pageable);
+        return findWritings.map(WritingResponseDto::new);
+    }
+
+    /**
+     * 글 제목 조회 메서드
+     * 제목을 String으로 받아 Page<>로 리턴한다.
+     */
+    public Page<WritingResponseDto> findBySubject(Pageable pageable, String subject) {
+
+        Page<Writing> findWritings = writingRepository.findBySubjectContaining(subject);
+        return findWritings.map(WritingResponseDto::new);
+    }
+
+    /**
+     * 글 작성자 조회 메서드
+     * username을 String으로 받아 Page<>로 리턴한다.
+     */
+    public Page<WritingResponseDto> findByUsername(Pageable pageable, String username) {
+
+        Optional<Member> findMember = memberRepository.findMemberByUsername(username);
+
+        if (findMember.isEmpty()) {
+            return null;
+        }
+
+        Page<Writing> findWritings = writingRepository.findByMember(findMember.get());
         return findWritings.map(WritingResponseDto::new);
     }
 
