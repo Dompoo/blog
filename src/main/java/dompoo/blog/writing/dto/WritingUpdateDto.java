@@ -5,15 +5,15 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class WritingSaveDto {
+public class WritingUpdateDto {
 
+    private Long writingId;
     private String subject;
     private String content;
-    private Long memberId;
 
-    public WritingSaveDto(String subject, String content, Long memberId) {
+    public WritingUpdateDto(Long writingId, String subject, String content) {
+        this.writingId = writingId;
         this.subject = subject;
         this.content = content;
-        this.memberId = memberId;
     }
 }
