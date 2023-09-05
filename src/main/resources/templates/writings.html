@@ -1,0 +1,20 @@
+<h2>글목록</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일시</th>
+        <th>내용</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="writing : ${writingList}">
+        <td th:text="${writing.getTitle()}"></td>
+        <td th:text="${writing.getUsername()}"></td>
+        <td th:text="${writing.getCreateDate()}"></td>
+        <td th:text="${writing.getContent()}"></td>
+    </tr>
+    </tbody>
+</table>
