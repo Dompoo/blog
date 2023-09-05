@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,5 +40,22 @@ class WritingServiceTest {
         assertThat(writingResponseDto.getSubject()).isEqualTo(writingSaveDto.getSubject());
         assertThat(writingResponseDto.getContent()).isEqualTo(writingSaveDto.getContent());
         assertThat(writingResponseDto.getUsername()).isEqualTo(memberDto.getUsername());
+    }
+
+    @Test
+    void findAll() {
+        MemberSaveDto member = new MemberSaveDto("username", "password");
+        MemberResponseDto memberDto = memberService.join(member);
+
+        WritingSaveDto writingSaveDto1 = new WritingSaveDto("subject1", "content1");
+        WritingSaveDto writingSaveDto2 = new WritingSaveDto("subject2", "content2");
+        WritingSaveDto writingSaveDto3 = new WritingSaveDto("subject3", "content3");
+        writingService.saveWrite(writingSaveDto1, memberDto.getId());
+        writingService.saveWrite(writingSaveDto2, memberDto.getId());
+        writingService.saveWrite(writingSaveDto3, memberDto.getId());
+
+        Page<WritingResponseDto> findAll = writingService.findAll(PageRequest.of(0, 10));
+
+        assertThat(findAll.getTotalElements()).isEqualTo(3);
     }
 }
