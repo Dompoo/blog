@@ -23,10 +23,11 @@ public class MemberService {
      * 유저 이름이 중복될 경우 null을 리턴한다.
      */
     public MemberResponseDto join(MemberSaveDto dto) {
+        if (repository.findMemberByUsername(dto.getUsername()).isPresent()) {
+            return null;
+        }
 
         Member member = new Member(dto.getUsername(), dto.getPassword());
-
-
         Member savedMember = repository.save(member);
         return new MemberResponseDto(savedMember);
     }
@@ -61,10 +62,10 @@ public class MemberService {
         if (findMember.isEmpty()) {
             return null;
         }
+
         Member member = findMember.get();
         member.setUsername(dto.getUsername());
         member.setPassword(dto.getPassword());
-
         return new MemberResponseDto(member);
     }
 }
