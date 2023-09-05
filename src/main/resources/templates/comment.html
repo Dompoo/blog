@@ -13,6 +13,11 @@
         <td th:text="${comment.getUsername()}"></td>
         <td th:text="${comment.getCreateDate()}"></td>
         <td th:text="${comment.getContent()}"></td>
+
     </tr>
     </tbody>
+    <form th:action="@{/comment/add}" method="post">
+        <textarea name="content" id="content" rows="10"></textarea>
+        <input type="submit" value="댓글 등록">
+    </form>
 </table>
