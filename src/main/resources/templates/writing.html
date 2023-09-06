@@ -1,20 +1,26 @@
 <h2>글 목록</h2>
 
-<table>
-    <thead>
-    <tr>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일시</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="writing : ${writingList}">
-        <td>
-            <a th:href="@{|/writing/${writing.getId()}|}" th:text="${writing.getTitle()}"> </a>
-        </td>
-        <td th:text="${writing.getUsername()}"></td>
-        <td th:text="${writing.getCreateDate()}"></td>
-    </tr>
-    </tbody>
-</table>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+
+<div class="container my-3">
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="writing, loop : ${writingList}">
+            <td th:text="${loop.count}"></td>
+            <td>
+                <a th:href="@{|/writing/${writing.getId()}|}" th:text="${writing.getTitle()}"> </a>
+            </td>
+            <td th:text="${writing.getUsername()}"></td>
+            <td th:text="${#temporals.format(writing.getCreateDate(), 'yy/MM/dd HH:mm')}" ></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
