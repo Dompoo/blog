@@ -6,6 +6,7 @@ import dompoo.blog.member.dto.MemberUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,19 +18,24 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 멤버 추가 메서드
      * 유저 이름이 중복될 경우 null을 리턴한다.
      */
     public MemberResponseDto join(MemberSaveDto dto) {
+
         if (repository.findMemberByUsername(dto.getUsername()).isPresent()) {
             return null;
         }
 
-        Member member = new Member(dto.getUsername(), dto.getPassword());
-        Member savedMember = repository.save(member);
-        return new MemberResponseDto(savedMember);
+        Member member = new Member(
+                dto.getUsername(),
+                passwordEncoder.encode(dto.getPassword())
+        );
+
+        return new MemberResponseDto(repository.save(member));
     }
 
     /**
@@ -37,6 +43,7 @@ public class MemberService {
      * pageable을 받아 Page<>로 리턴한다.
      */
     public Page<MemberResponseDto> findAll(Pageable pageable) {
+
         return repository.findAll(pageable)
                 .map(MemberResponseDto::new);
     }

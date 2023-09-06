@@ -3,12 +3,15 @@ package dompoo.blog.member;
 import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.dto.MemberUpdateDto;
+import dompoo.blog.member.form.MemberCreateForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -49,5 +52,30 @@ public class MemberController {
     public ResponseEntity<String> test() {
         log.info("[Controller] security");
         return ResponseEntity.ok("token");
+    }
+
+    @GetMapping("/signup")
+    public String signup(MemberCreateForm memberCreateForm) {
+        return "signup_form";
+    }
+
+    @PostMapping("/signup")
+    public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "signup_form";
+        }
+
+        if (!memberCreateForm.getPassword().equals(memberCreateForm.getCheckPassword())) {
+            bindingResult.rejectValue("checkPassword", "passwordInCorrect",
+                    "패스워드가 일치하지 않습니다.");
+            return "signup_form";
+        }
+
+        memberService.join(new MemberSaveDto(
+                memberCreateForm.getUsername(),
+                memberCreateForm.getPassword()
+        ));
+
+        return "redirect:/";
     }
 }
