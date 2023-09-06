@@ -1,9 +1,8 @@
-<h2>글 상세</h2>
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<div class="container my-3">
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
     <h1 class="border-bottom py-2" th:text="${writing.getTitle()}"></h1>
     <div class="d-flex justify-content-end">
-        <div class="badge bg-light text-dark p-2 text-start">
+        <div class="badge text-dark p-2 text-start">
             <div th:text="${#temporals.format(writing.getCreateDate(), 'yy/MM/dd HH:mm')}"></div>
             <div th:text="${writing.getUsername()}"></div>
         </div>
@@ -13,9 +12,9 @@
             <div class="card-text" style="white-space: pre-line;" th:text="${writing.getContent()}"></div>
         </div>
     </div>
+    <form th:action="@{|/comment/list/${writing.getId()}|}" method="get">
+        <input type="submit" value="댓글 보기">
+    </form>
 </div>
+</html>
 
-
-<form th:action="@{|/comment/list/${writing.getId()}|}" method="get">
-    <input type="submit" value="댓글 보기">
-</form>

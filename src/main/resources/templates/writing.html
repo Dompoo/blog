@@ -1,8 +1,5 @@
-<h2>글 목록</h2>
-
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-
-<div class="container my-3">
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
         <tr>
@@ -24,3 +21,4 @@
         </tbody>
     </table>
 </div>
+</html>
