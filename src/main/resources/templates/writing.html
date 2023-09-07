@@ -11,7 +11,7 @@
         </thead>
         <tbody>
         <tr th:each="writing, loop : ${writingList}">
-            <td th:text="${loop.count}"></td>
+            <td th:text="${writingList.totalElements - (writingList.number * writingList.size) - loop.index}"></td>
             <td>
                 <a th:href="@{|/writing/${writing.getId()}|}" th:text="${writing.getTitle()}"> </a>
             </td>
@@ -26,18 +26,18 @@
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${!writingList.hasPrevious} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{|?page=${writingList.getNumber()-1}|}">
+                   th:href="@{|?page=${writingList.number - 1}|}">
                     <span>이전</span>
                 </a>
             </li>
-            <li th:each="page: ${#numbers.sequence(0, writingList.getTotalPages()-1)}"
-                th:if="${page >= writingList.getNumber()-2 and page <= writingList.getNumber()+2}"
+            <li th:each="page: ${#numbers.sequence(0, writingList.totalPages -1)}"
+                th:if="${page >= writingList.number - 2 and page <= writingList.number + 2}"
                 th:classappend="${page == writingList.number} ? 'active'"
                 class="page-item">
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
             <li class="page-item" th:classappend="${!writingList.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${writingList.getNumber()+1}|}">
+                <a class="page-link" th:href="@{|?page=${writingList.number + 1}|}">
                     <span>다음</span>
                 </a>
             </li>
