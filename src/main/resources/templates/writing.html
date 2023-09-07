@@ -4,9 +4,9 @@
         <thead class="table-dark">
         <tr>
             <th>번호</th>
-            <th>제목</th>
+            <th>글 제목</th>
             <th>작성자</th>
-            <th>작성일시</th>
+            <th>작성일</th>
         </tr>
         </thead>
         <tbody>
@@ -16,10 +16,11 @@
                 <a th:href="@{|/writing/${writing.getId()}|}" th:text="${writing.getTitle()}"> </a>
             </td>
             <td th:text="${writing.getUsername()}"></td>
-            <td th:text="${#temporals.format(writing.getCreateDate(), 'yy/MM/dd HH:mm')}" ></td>
+            <td th:text="${#temporals.format(writing.getCreateDate(), 'yy/MM/dd')}" ></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/writing/save}" class="btn btn-primary">글쓰기</a>
     <!-- 페이징처리 시작 -->
     <div th:if="${!writingList.isEmpty()}">
         <ul class="pagination justify-content-center">
@@ -43,6 +44,5 @@
         </ul>
     </div>
     <!-- 페이징처리 끝 -->
-    <a th:href="@{/writing/save}" class="btn btn-primary">글쓰기</a>
 </div>
 </html>

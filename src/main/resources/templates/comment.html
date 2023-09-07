@@ -5,14 +5,14 @@
         <tr>
             <th>내용</th>
             <th>작성자</th>
-            <th>작성 시간</th>
+            <th>작성일</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="comment : ${commentList}">
             <td th:text="${comment.getContent()}"></td>
             <td th:text="${comment.getUsername()}"></td>
-            <td th:text="${#temporals.format(comment.getCreateDate(), 'yy/MM/dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(comment.getCreateDate(), 'yy/MM/dd')}"></td>
         </tr>
         </tbody>
     </table>
