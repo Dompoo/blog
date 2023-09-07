@@ -12,14 +12,14 @@
         <tr th:each="comment : ${commentList}">
             <td th:text="${comment.getContent()}"></td>
             <td th:text="${comment.getUsername()}"></td>
-            <td th:text="${comment.getCreateDate()}"></td>
+            <td th:text="${#temporals.format(comment.getCreateDate(), 'yy/MM/dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
     <form th:action="@{/comment/{writingId}(writingId=${writingId})}" th:object="${commentCreateForm}" method="post">
-<!--        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
-<!--            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
-<!--        </div>-->
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
             <textarea name="content" id="content" class="form-control" rows="4"></textarea>
