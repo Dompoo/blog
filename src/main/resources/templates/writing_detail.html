@@ -12,7 +12,7 @@
             <div class="card-text" style="white-space: pre-line;" th:text="${writing.getContent()}"></div>
         </div>
     </div>
-    <form th:action="@{|/comment/list/${writing.getId()}|}" method="get">
+    <form th:action="@{|/comment/${writing.getId()}|}" method="get">
         <input type="submit" value="댓글 보기">
     </form>
 </div>

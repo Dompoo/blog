@@ -16,9 +16,15 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/comment/add}" method="post">
-        <textarea name="content" id="content" rows="10"></textarea>
-        <input type="submit" value="댓글 등록">
+    <form th:action="@{/comment/{writingId}(writingId=${writingId})}" th:object="${commentCreateForm}" method="post">
+<!--        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
+<!--            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--        </div>-->
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea name="content" id="content" class="form-control" rows="4"></textarea>
+        </div>
+        <input type="submit" value="저장" class="btn btn-primary my-2">
     </form>
 </div>
 </html>
