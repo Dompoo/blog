@@ -59,6 +59,9 @@ public class BlogInitializer {
                         "사랑할 것을 마땅히 사랑하는\n" +
                         "그저 보통의 사람",
                 memberDto2.getId()));
+        for (int i = 0; i < 100; i++) {
+            writingService.saveWrite(new WritingSaveDto("writing" + i, "content" + i, memberDto1.getId()));
+        }
 
         commentService.saveComment(new CommentSaveDto("님 짱이네요.", writingDto1.getId(), memberDto2.getId()));
         commentService.saveComment(new CommentSaveDto("님 넘 멋져요.", writingDto2.getId(), memberDto1.getId()));

@@ -10,10 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,8 +20,8 @@ public class WritingController {
     private final WritingService writingService;
 
     @GetMapping("")
-    public String list(Model model) {
-        Page<WritingResponseDto> writingList = writingService.findAll(PageRequest.of(0, 10));
+    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+        Page<WritingResponseDto> writingList = writingService.findAll(PageRequest.of(page, 10));
         model.addAttribute("writingList", writingList);
         return "writing";
     }
