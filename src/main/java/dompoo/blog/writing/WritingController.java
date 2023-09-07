@@ -7,10 +7,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,14 +24,18 @@ public class WritingController {
     private final WritingService writingService;
 
     @GetMapping("")
-    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
-        Page<WritingResponseDto> writingList = writingService.findAll(PageRequest.of(page, 10));
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("modifiedDate"));
+        Page<WritingResponseDto> writingList = writingService.findAll(PageRequest.of(page, 10, Sort.by(sorts)));
         model.addAttribute("writingList", writingList);
         return "writing";
     }
 
     @GetMapping("/{id}")
     public String detail(Model model, @PathVariable("id") Long writingId) {
+
         WritingResponseDto findWriting = writingService.findOne(writingId);
         model.addAttribute("writing", findWriting);
         return "writing_detail";
@@ -35,6 +43,7 @@ public class WritingController {
 
     @GetMapping("/save")
     public String saveWrite(WritingCreateForm writingCreateForm) {
+
         return "writing_form";
     }
 
