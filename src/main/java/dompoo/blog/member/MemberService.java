@@ -1,5 +1,6 @@
 package dompoo.blog.member;
 
+import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.dto.MemberUpdateDto;
@@ -50,7 +51,12 @@ public class MemberService {
      */
     public MemberResponseDto findOne(Long memberId) {
         Optional<Member> findMember = repository.findById(memberId);
-        return findMember.map(MemberResponseDto::new).orElse(null);
+        return findMember.map(MemberResponseDto::new).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
+    }
+
+    public MemberResponseDto findByUsername(String username) {
+        Optional<Member> findMember = repository.findByUsername(username);
+        return findMember.map(MemberResponseDto::new).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
     }
 
     /**

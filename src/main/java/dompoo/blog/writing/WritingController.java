@@ -1,5 +1,6 @@
 package dompoo.blog.writing;
 
+import dompoo.blog.member.MemberService;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
 import dompoo.blog.writing.form.WritingCreateForm;
@@ -8,11 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ import java.util.List;
 public class WritingController {
 
     private final WritingService writingService;
+    private final MemberService memberService;
 
     @GetMapping("")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
@@ -41,24 +45,25 @@ public class WritingController {
         return "writing_detail";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/save")
     public String saveWrite(WritingCreateForm writingCreateForm) {
 
         return "writing_form";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/save")
-    public String saveWrite(@Valid WritingCreateForm writingCreateForm, BindingResult bindingResult) {
+    public String saveWrite(@Valid WritingCreateForm writingCreateForm, BindingResult bindingResult, Principal principal) {
 
         if (bindingResult.hasErrors()) {
             return "writing_form";
         }
 
-        //TODO Spring Security -> memberId로 작성자 아이디 받기.
         writingService.saveWrite(new WritingSaveDto(
                 writingCreateForm.getTitle(),
                 writingCreateForm.getContent(),
-                1L
+                memberService.findByUsername(principal.getName()).getId()
         ));
 
         return "redirect:/writing";
