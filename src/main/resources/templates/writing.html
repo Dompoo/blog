@@ -2,17 +2,17 @@
 <div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>번호</th>
-            <th>제목</th>
+            <th style="width: 50%">제목</th>
             <th>작성자</th>
             <th>작성일</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="writing, loop : ${writingList}">
+        <tr class="text-center" th:each="writing, loop : ${writingList}">
             <td th:text="${writingList.totalElements - (writingList.number * writingList.size) - loop.index}"></td>
-            <td>
+            <td class="text-start">
                 <a th:href="@{|/writing/${writing.getId()}|}" th:text="${writing.getTitle()}"> </a>
             </td>
             <td th:text="${writing.getUsername()}"></td>

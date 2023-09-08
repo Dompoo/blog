@@ -2,31 +2,20 @@
 <div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
-        <tr>
-            <th>댓글</th>
+        <tr class="text-center">
+            <th style="width: 50%">댓글</th>
             <th>작성자</th>
             <th>작성일</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="comment : ${commentList}">
-            <td th:text="${comment.getContent()}"></td>
+        <tr class="text-center" th:each="comment : ${commentList}">
+            <td class="text-start" th:text="${comment.getContent()}"></td>
             <td th:text="${comment.getUsername()}"></td>
             <td th:text="${#temporals.format(comment.getCreateDate(), 'yy/MM/dd')}"></td>
         </tr>
         </tbody>
     </table>
-    <div class="container">
-        <div class="row">
-
-            <div class="col">
-
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-1">
             <form th:object="${commentCreateForm}" th:action="@{/comment/{writingId}(writingId=${writingId})}" method="post">
