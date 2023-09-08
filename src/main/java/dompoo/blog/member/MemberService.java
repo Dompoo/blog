@@ -26,10 +26,6 @@ public class MemberService {
      */
     public MemberResponseDto join(MemberSaveDto dto) {
 
-        if (repository.findMemberByUsername(dto.getUsername()).isPresent()) {
-            return null;
-        }
-
         Member member = new Member(
                 dto.getUsername(),
                 passwordEncoder.encode(dto.getPassword())
