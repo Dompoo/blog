@@ -30,6 +30,7 @@ public class BlogInitializer {
     public void init() {
         MemberResponseDto memberDto1 = memberService.join(new MemberSaveDto("윤동주", "password1"));
         MemberResponseDto memberDto2 = memberService.join(new MemberSaveDto("나태주", "password2"));
+        memberService.join(new MemberSaveDto("asd", "asd"));
 
         for (int i = 1; i<= 100; i++) {
             writingService.saveWrite(new WritingSaveDto("writing" + i, "content" + i, memberDto1.getId()));

@@ -75,7 +75,7 @@ public class WritingService {
      */
     public Page<WritingResponseDto> findByUsername(Pageable pageable, String username) {
 
-        Optional<Member> findMember = memberRepository.findMemberByUsername(username);
+        Optional<Member> findMember = memberRepository.findByUsername(username);
 
         if (findMember.isEmpty()) {
             log.info("findMember Empty!");
