@@ -7,9 +7,17 @@
             <div th:text="${writing.getUsername()}"></div>
         </div>
     </div>
+
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${writing.getContent()}"></div>
+        </div>
+        <div class="p-3">
+            <a th:href="@{|/writing/modify/${writing.id}|}" class="btn btn-sm btn-outline-secondary"
+               sec:authorize="isAuthenticated()"
+               th:if="${writing.username != null and #authentication.getPrincipal().getUsername() == writing.username}"
+               th:text="수정">
+            </a>
         </div>
     </div>
     <div class="row">
