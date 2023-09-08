@@ -104,4 +104,12 @@ public class WritingService {
         return new WritingResponseDto(writing);
     }
 
+    /**
+     * 글 삭제 메서드
+     * id를 받아 삭제한다.
+     */
+    public void deleteWriting(Long writingId) {
+        writingRepository.deleteById(writingId);
+    }
+
 }

@@ -101,4 +101,15 @@ public class WritingController {
 
         return String.format("redirect:/writing/%s", writingId);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String deleteWriting(@PathVariable("id") Long writingId, Principal principal) {
+        WritingResponseDto writing = writingService.findOne(writingId);
+        if (!writing.getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        writingService.deleteWriting(writingId);
+        return "redirect:/";
+    }
 }
