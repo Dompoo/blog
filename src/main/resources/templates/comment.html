@@ -3,7 +3,7 @@
     <table class="table">
         <thead class="table-dark">
         <tr>
-            <th>내용</th>
+            <th>댓글</th>
             <th>작성자</th>
             <th>작성일</th>
         </tr>
@@ -16,15 +16,36 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/comment/{writingId}(writingId=${writingId})}" th:object="${commentCreateForm}" method="post">
-        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">내용</label>
-            <textarea name="content" id="content" class="form-control" rows="4"></textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <form th:object="${commentCreateForm}" th:action="@{/comment/{writingId}(writingId=${writingId})}" method="post">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <textarea name="content" id="content" class="form-control" rows="4" placeholder="댓글을 작성해보세요."></textarea>
+                </div>
+                <input type="submit" value="저장" th:formaction="@{/comment/{writingId}(writingId=${writingId})}" class="btn btn-primary my-2">
+            </form>
         </div>
-        <input type="submit" value="저장" class="btn btn-primary my-2">
-    </form>
+        <div class="col-md-1">
+            <form method="get">
+                <input type="submit" value="뒤로가기" th:formaction="@{/writing/{writingId}(writingId=${writingId})}" class="btn btn-primary my-2">
+            </form>
+        </div>
+    </div>
+    <form th:action="@{/writing/{writingId}(writingId=${writingId})}" method="get"></form>
 </div>
 </html>

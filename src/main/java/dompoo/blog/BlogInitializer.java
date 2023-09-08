@@ -31,6 +31,10 @@ public class BlogInitializer {
         MemberResponseDto memberDto1 = memberService.join(new MemberSaveDto("윤동주", "password1"));
         MemberResponseDto memberDto2 = memberService.join(new MemberSaveDto("나태주", "password2"));
 
+        for (int i = 1; i<= 100; i++) {
+            writingService.saveWrite(new WritingSaveDto("writing" + i, "content" + i, memberDto1.getId()));
+        }
+
         WritingResponseDto writingDto1 = writingService.saveWrite(new WritingSaveDto(
                 "서시",
                 "죽는 날까지 하늘을 우러러\n" +
@@ -59,9 +63,6 @@ public class BlogInitializer {
                         "사랑할 것을 마땅히 사랑하는\n" +
                         "그저 보통의 사람",
                 memberDto2.getId()));
-        for (int i = 0; i < 100; i++) {
-            writingService.saveWrite(new WritingSaveDto("writing" + i, "content" + i, memberDto1.getId()));
-        }
 
         commentService.saveComment(new CommentSaveDto("님 짱이네요.", writingDto1.getId(), memberDto2.getId()));
         commentService.saveComment(new CommentSaveDto("님 넘 멋져요.", writingDto2.getId(), memberDto1.getId()));

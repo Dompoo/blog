@@ -12,8 +12,17 @@
             <div class="card-text" style="white-space: pre-line;" th:text="${writing.getContent()}"></div>
         </div>
     </div>
-    <form th:action="@{|/comment/${writing.getId()}|}" method="get">
-        <input type="submit" value="댓글" class="btn btn-primary">
-    </form>
+    <div class="row">
+        <div class="col-md-1">
+            <form th:action="@{|/comment/${writing.getId()}|}" method="get">
+                <input type="submit" value="댓글" class="btn btn-primary my-2">
+            </form>
+        </div>
+        <div class="col-md-1">
+            <form th:action="@{/writing}" method="get">
+                <input type="submit" value="뒤로 가기" class="btn btn-primary my-2">
+            </form>
+        </div>
+    </div>
 </div>
 </html>
