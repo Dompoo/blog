@@ -1,10 +1,13 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <!-- 게시글 표시 -->
     <h1 class="border-bottom py-2" th:text="${writing.getTitle()}"></h1>
     <div class="d-flex justify-content-end">
         <div class="badge text-dark p-2 text-start">
+            <div class="mb-2">
+                <span th:text="${writing.getUsername()}"></span>
+            </div>
             <div th:text="${#temporals.format(writing.getCreateDate(), 'yy/MM/dd')}"></div>
-            <div th:text="${writing.getUsername()}"></div>
         </div>
     </div>
 
@@ -22,29 +25,63 @@
                class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                th:if="${writing.username != null and #authentication.getPrincipal().getUsername() == writing.username}"
                th:text="삭제">
-
             </a>
         </div>
     </div>
+    <!-- 게시글 표시 끝-->
     <div class="row">
-        <div class="col-md-1">
-            <form th:action="@{|/comment/${writing.getId()}|}" method="get">
-                <input type="submit" value="댓글" class="btn btn-primary my-2">
-            </form>
-        </div>
         <div class="col-md-1">
             <form th:action="@{/writing}" method="get">
                 <input type="submit" value="뒤로 가기" class="btn btn-primary my-2">
             </form>
         </div>
     </div>
-</div><script layout:fragment="script" type='text/javascript'>
+    <!-- 댓글의 갯수 표시 -->
+    <h5 class="border-bottom my-3 py-2"
+        th:text="|${#lists.size(writing.comments)}개의 댓글이 있습니다.|">
+    </h5>
+    <!-- 댓글 반복 시작 -->
+    <div class="card my-3" th:each="comment : ${writing.comments}">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:text="${comment.content}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">
+                        <span th:if="${comment.member != null}" th:text="${comment.member.username}"></span>
+                    </div>
+                    <div th:text="${#temporals.format(comment.modifiedDate, 'MM/dd HH:mm')}"></div>
+                </div>
+            </div>
+            <div class="my-3">
+                <a th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                   sec:authorize="isAuthenticated()"
+                   th:if="${comment.member.username != null and #authentication.getPrincipal().getUsername() == comment.member.username}"
+                   th:text="수정"></a>
+                <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}"
+                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                   th:if="${comment.member != null and #authentication.getPrincipal().getUsername() == comment.member.username}"
+                   th:text="삭제"></a>
+            </div>
+        </div>
+    </div>
+    <!-- 댓글 반복 끝 -->
+    <!-- 댓글 작성 -->
+    <form th:action="@{|/comment/save/${writing.id}|}" th:object="${commentCreateForm}" method="post" class="my-3">
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+        <input type="submit" value="댓글등록" class="btn btn-primary my-2">
+    </form>
+</div>
+
+
+<script layout:fragment="script" type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
     Array.from(delete_elements).forEach(function(element) {
         element.addEventListener('click', function() {
             if(confirm("정말로 삭제하시겠습니까?")) {
                 location.href = this.dataset.uri;
-            };
+            }
         });
     });
 </script>
