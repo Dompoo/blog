@@ -76,14 +76,13 @@ public class WritingController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String modify(WritingCreateForm writingCreateForm, @PathVariable("id") Long writingId, Principal principal) {
+    public String modify(Model model, WritingCreateForm writingCreateForm, @PathVariable("id") Long writingId, Principal principal) {
         WritingResponseDto writing = writingService.findOne(writingId);
         if (!writing.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        log.info("{} {}", writing.getTitle(), writing.getContent());
-        writingCreateForm.setTitle(writing.getTitle());
-        writingCreateForm.setContent(writing.getContent());
+        model.addAttribute("title", writing.getTitle());
+        model.addAttribute("content", writing.getContent());
         return "writing_form";
     }
 
