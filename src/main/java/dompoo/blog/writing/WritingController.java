@@ -1,5 +1,6 @@
 package dompoo.blog.writing;
 
+import dompoo.blog.comment.form.CommentCreateForm;
 import dompoo.blog.member.MemberService;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
@@ -43,7 +44,7 @@ public class WritingController {
     }
 
     @GetMapping("/{id}")
-    public String detail(Model model, @PathVariable("id") Long writingId) {
+    public String detail(Model model, @PathVariable("id") Long writingId, CommentCreateForm commentCreateForm) {
 
         WritingResponseDto findWriting = writingService.findOne(writingId);
         model.addAttribute("writing", findWriting);
