@@ -68,8 +68,8 @@
     <!-- 댓글 작성 -->
     <form th:action="@{|/comment/save/${writing.id}|}" th:object="${commentCreateForm}" method="post" class="my-3">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
-        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="5"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="5"></textarea>
         <input type="submit" value="댓글등록" class="btn btn-primary my-2">
     </form>
 </div>

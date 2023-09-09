@@ -76,4 +76,11 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
+    /**
+     * 댓글 삭제
+     */
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
 }

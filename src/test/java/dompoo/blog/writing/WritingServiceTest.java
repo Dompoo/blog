@@ -74,7 +74,7 @@ class WritingServiceTest {
         writingService.saveWrite(writingSaveDto2);
         writingService.saveWrite(writingSaveDto3);
 
-        WritingResponseDto findWriting = writingService.findOne(writingResponseDto.getId()).orElse(null);
+        WritingResponseDto findWriting = writingService.findOne(writingResponseDto.getId())
 
         assertThat(findWriting.getTitle()).isEqualTo(writingSaveDto1.getSubject());
         assertThat(findWriting.getContent()).isEqualTo(writingSaveDto1.getTitle());
