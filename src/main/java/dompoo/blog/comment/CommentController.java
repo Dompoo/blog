@@ -6,7 +6,6 @@ import dompoo.blog.comment.dto.CommentUpdateDto;
 import dompoo.blog.comment.form.CommentCreateForm;
 import dompoo.blog.member.MemberService;
 import dompoo.blog.writing.WritingService;
-import dompoo.blog.writing.dto.WritingResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,14 +44,12 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             return "writing_detail";
         }
-        commentService.saveComment(new CommentSaveDto(
+        CommentResponseDto saveComment = commentService.saveComment(new CommentSaveDto(
                 commentCreateForm.getContent(),
                 writingId,
                 memberService.findByUsername(principal.getName()).getId()
         ));
-        WritingResponseDto findWriting = writingService.findOne(writingId);
-        model.addAttribute("writing", findWriting);
-        return "writing_detail";
+        return String.format("redirect:/writing/%s#comment_%s", writingId, saveComment.getCommentId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -85,8 +82,8 @@ public class CommentController {
         if (!findComment.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        commentService.updateComment(new CommentUpdateDto(commentId, commentCreateForm.getContent()));
-        return String.format("redirect:/writing/%s", findComment.getWritingId());
+        CommentResponseDto updateComment = commentService.updateComment(new CommentUpdateDto(commentId, commentCreateForm.getContent()));
+        return String.format("redirect:/writing/%s#comment_%s", updateComment.getWritingId(), updateComment.getCommentId());
     }
 
     //comment/delete/${comment.id}
