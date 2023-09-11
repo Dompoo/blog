@@ -11,7 +11,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -38,6 +40,9 @@ public class Writing extends ModifiedDate {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToMany
+    private Set<Member> voteMembers = new HashSet<>();
 
     public Writing(String title, String content) {
         this.title = title;

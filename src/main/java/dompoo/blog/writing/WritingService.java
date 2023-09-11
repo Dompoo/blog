@@ -6,6 +6,7 @@ import dompoo.blog.member.MemberRepository;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
 import dompoo.blog.writing.dto.WritingUpdateDto;
+import dompoo.blog.writing.dto.WritingVoteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -110,6 +111,13 @@ public class WritingService {
      */
     public void deleteWriting(Long writingId) {
         writingRepository.deleteById(writingId);
+    }
+
+    public void voteWriting(WritingVoteDto dto) {
+        Writing findWriting = writingRepository.findById(dto.getWritingId()).orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
+        Member findMember = memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new DataNotFoundException("Member Not Found"));
+
+        findWriting.getVoteMembers().add(findMember);
     }
 
 }

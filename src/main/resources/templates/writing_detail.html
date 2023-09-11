@@ -27,6 +27,10 @@
                th:text="삭제">
             </a>
         </div>
+        <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+           th:data-uri="@{|/writing/vote/${writing.id}|}">공감
+            <span class="badge rounded-pill bg-success" th:text="${writing.votes}"></span>
+        </a>
     </div>
     <!-- 게시글 표시 끝-->
     <div class="row">
@@ -84,5 +88,14 @@
             }
         });
     });
+    const recommend_elements = document.getElementsByClassName("recommend");
+    Array.from(recommend_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 추천하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+        });
+    });
 </script>
+
 </html>

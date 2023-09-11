@@ -2,9 +2,11 @@ package dompoo.blog.writing;
 
 import dompoo.blog.comment.form.CommentCreateForm;
 import dompoo.blog.member.MemberService;
+import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.writing.dto.WritingResponseDto;
 import dompoo.blog.writing.dto.WritingSaveDto;
 import dompoo.blog.writing.dto.WritingUpdateDto;
+import dompoo.blog.writing.dto.WritingVoteDto;
 import dompoo.blog.writing.form.WritingCreateForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -111,5 +113,14 @@ public class WritingController {
         }
         writingService.deleteWriting(writingId);
         return "redirect:/";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String voteWriting(@PathVariable("id") Long writingId, Principal principal) {
+        MemberResponseDto findMember = memberService.findByUsername(principal.getName());
+
+        writingService.voteWriting(new WritingVoteDto(writingId, findMember.getId()));
+        return String.format("redirect:/writing/%s", writingId);
     }
 }

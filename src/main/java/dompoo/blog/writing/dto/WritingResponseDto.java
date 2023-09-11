@@ -18,6 +18,7 @@ public class WritingResponseDto {
     private LocalDateTime createDate;
     private String username;
     private List<Comment> comments;
+    private int votes;
 
     public WritingResponseDto(Writing writing) {
         this.id = writing.getId();
@@ -26,5 +27,6 @@ public class WritingResponseDto {
         this.createDate = writing.getModifiedDate();
         this.username = writing.getMember().getUsername();
         this.comments = writing.getComment();
+        this.votes = writing.getVoteMembers().size();
     }
 }
