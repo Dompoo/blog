@@ -1,5 +1,6 @@
 package dompoo.blog.writing.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import dompoo.blog.comment.Comment;
 import dompoo.blog.writing.Writing;
 import lombok.Getter;
@@ -28,5 +29,16 @@ public class WritingResponseDto {
         this.username = writing.getMember().getUsername();
         this.comments = writing.getComment();
         this.votes = writing.getVoteMembers().size();
+    }
+
+    @QueryProjection
+    public WritingResponseDto(Long id, String title, String content, LocalDateTime createDate, String username, List<Comment> comments, int votes) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+        this.username = username;
+        this.comments = comments;
+        this.votes = votes;
     }
 }

@@ -3,10 +3,7 @@ package dompoo.blog.writing;
 import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.member.Member;
 import dompoo.blog.member.MemberRepository;
-import dompoo.blog.writing.dto.WritingResponseDto;
-import dompoo.blog.writing.dto.WritingSaveDto;
-import dompoo.blog.writing.dto.WritingUpdateDto;
-import dompoo.blog.writing.dto.WritingVoteDto;
+import dompoo.blog.writing.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -45,9 +42,17 @@ public class WritingService {
      * Pageable을 받아 Page<>로 리턴한다.
      */
     public Page<WritingResponseDto> findAll(Pageable pageable) {
-
         Page<Writing> findWritings = writingRepository.findAll(pageable);
         return findWritings.map(WritingResponseDto::new);
+    }
+
+    /**
+     * 글 옵션 조회 메서드
+     * condition으로 필터 검색
+     */
+    public Page<WritingResponseDto> findByCond(WritingSearchCondition condition, Pageable pageable) {
+
+        return writingRepository.search(condition, pageable).map(WritingResponseDto::new);
     }
 
     /**

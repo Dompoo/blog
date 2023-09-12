@@ -1,5 +1,6 @@
 package dompoo.blog.writing;
 
+import com.querydsl.core.annotations.QueryProjection;
 import dompoo.blog.comment.Comment;
 import dompoo.blog.etc.ModifiedDate;
 import dompoo.blog.member.Member;
@@ -47,6 +48,17 @@ public class Writing extends ModifiedDate {
     public Writing(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    @QueryProjection
+    public Writing(Long id, String title, String content, LocalDateTime modifiedDate, List<Comment> comment, Member member, Set<Member> voteMembers) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.modifiedDate = modifiedDate;
+        this.comment = comment;
+        this.member = member;
+        this.voteMembers = voteMembers;
     }
 
     //연관관계 편의 메서드

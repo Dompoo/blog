@@ -3,17 +3,13 @@ package dompoo.blog.writing;
 import dompoo.blog.comment.form.CommentCreateForm;
 import dompoo.blog.member.MemberService;
 import dompoo.blog.member.dto.MemberResponseDto;
-import dompoo.blog.writing.dto.WritingResponseDto;
-import dompoo.blog.writing.dto.WritingSaveDto;
-import dompoo.blog.writing.dto.WritingUpdateDto;
-import dompoo.blog.writing.dto.WritingVoteDto;
+import dompoo.blog.writing.dto.*;
 import dompoo.blog.writing.form.WritingCreateForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,11 +30,15 @@ public class WritingController {
     private final MemberService memberService;
 
     @GetMapping("")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String list(Model model,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "username", required = false) String username,
+                       @RequestParam(value = "writingTitle", required = false) String writingTitle,
+                       @RequestParam(value = "writingContent", required = false) String writingContent
+                       ) {
 
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("modifiedDate"));
-        Page<WritingResponseDto> writingList = writingService.findAll(PageRequest.of(page, 10, Sort.by(sorts)));
+        WritingSearchCondition cond = new WritingSearchCondition(username, writingTitle, writingContent);
+        Page<WritingResponseDto> writingList = writingService.findByCond(cond, PageRequest.of(page, 10));
         model.addAttribute("writingList", writingList);
         return "writing";
     }
