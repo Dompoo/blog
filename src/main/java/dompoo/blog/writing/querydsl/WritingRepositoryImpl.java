@@ -32,7 +32,7 @@ public class WritingRepositoryImpl implements WritingRepositoryCustom {
                 .from(writing)
                 .where(usernameEq(condition.getUsername()),
                         writingTitleEQ(condition.getWritingTitle()),
-                        writingContentEq(condition.getWritingContent()))
+                        writingContentContain(condition.getWritingContent()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(writing.modifiedDate.desc())
@@ -43,7 +43,7 @@ public class WritingRepositoryImpl implements WritingRepositoryCustom {
                 .from(writing)
                 .where(usernameEq(condition.getUsername()),
                         writingTitleEQ(condition.getWritingTitle()),
-                        writingContentEq(condition.getWritingContent()));
+                        writingContentContain(condition.getWritingContent()));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
     }
@@ -56,7 +56,7 @@ public class WritingRepositoryImpl implements WritingRepositoryCustom {
         return !hasLength(title) ? null : writing.title.eq(title);
     }
 
-    private BooleanExpression writingContentEq(String content) {
-        return !hasLength(content) ? null : writing.content.eq(content);
+    private BooleanExpression writingContentContain(String content) {
+        return !hasLength(content) ? null : writing.content.contains(content);
     }
 }

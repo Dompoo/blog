@@ -1,5 +1,21 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+        <div class="col-6">
+            <a th:href="@{/writing/save}" class="btn btn-primary">글쓰기</a>
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <select class="form-select" id="search-mode" name="search-mode">
+                    <option value="search_title">제목</option>
+                    <option value="search_username">이름</option>
+                    <option value="search_content">내용</option>
+                </select>
+                <input type="text" id="search-input" class="form-control">
+                <button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+            </div>
+        </div>
+    </div>
     <table class="table">
         <thead class="table-dark">
         <tr class="text-center">
@@ -20,29 +36,54 @@
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/writing/save}" class="btn btn-primary">글쓰기</a>
     <!-- 페이징처리 시작 -->
     <div th:if="${!writingList.isEmpty()}">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${!writingList.hasPrevious} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{|?page=${writingList.number - 1}|}">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${writingList.number - 1}">
                     <span>이전</span>
                 </a>
             </li>
-            <li th:each="page: ${#numbers.sequence(0, writingList.totalPages -1)}"
+            <li th:each="page: ${#numbers.sequence(0, writingList.totalPages - 1)}"
                 th:if="${page >= writingList.number - 2 and page <= writingList.number + 2}"
                 th:classappend="${page == writingList.number} ? 'active'"
                 class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
             </li>
             <li class="page-item" th:classappend="${!writingList.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${writingList.number + 1}|}">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${writingList.number + 1}">
                     <span>다음</span>
                 </a>
             </li>
         </ul>
     </div>
     <!-- 페이징처리 끝 -->
+    <form th:action="@{/writing}" method="get" id="searchForm">
+        <input type="hidden" id="username" name="username" th:value="${username}">
+        <input type="hidden" id="writingTitle" name="writingTitle" th:value="${writingTitle}">
+        <input type="hidden" id="writingContent" name="writingContent" th:value="${writingContent}">
+        <input type="hidden" id="page" name="page" th:value="${writingList.number}">
+    </form>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+    const page_elements = document.getElementsByClassName("page-link");
+    Array.from(page_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            document.getElementById('page').value = this.dataset.page;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    const btn_search = document.getElementById("btn_search");
+    btn_search.addEventListener('click', function() {
+        if (document.getElementById('search-mode').value === "search_title") {
+            document.getElementById('writingTitle').value = document.getElementById('search-input').value;
+        } else if (document.getElementById('search-mode').value === "search_username") {
+            document.getElementById('username').value = document.getElementById('search-input').value;
+        } else {
+            document.getElementById('writingContent').value = document.getElementById('search-input').value;
+        }
+        document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+        document.getElementById('searchForm').submit();
+    });
+</script>
 </html>

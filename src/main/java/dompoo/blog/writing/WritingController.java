@@ -37,6 +37,8 @@ public class WritingController {
                        @RequestParam(value = "writingContent", required = false) String writingContent
                        ) {
 
+        log.info("WritingController - list 호출!");
+        log.info("page = {}, username = {}, title = {}, content = {}", page, username, writingTitle, writingContent);
         WritingSearchCondition cond = new WritingSearchCondition(username, writingTitle, writingContent);
         Page<WritingResponseDto> writingList = writingService.findByCond(cond, PageRequest.of(page, 10));
         model.addAttribute("writingList", writingList);

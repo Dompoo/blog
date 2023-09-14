@@ -29,10 +29,8 @@ public class WritingService {
     public WritingResponseDto saveWrite(WritingSaveDto dto) {
 
         Member findMember = memberRepository.findById(dto.getMemberId()).orElse(null);
-
         Writing writing = new Writing(dto.getSubject(), dto.getTitle());
         writing.setMember(findMember);
-
         Writing saveWriting = writingRepository.save(writing);
         return new WritingResponseDto(saveWriting);
     }
@@ -42,6 +40,7 @@ public class WritingService {
      * Pageable을 받아 Page<>로 리턴한다.
      */
     public Page<WritingResponseDto> findAll(Pageable pageable) {
+
         Page<Writing> findWritings = writingRepository.findAll(pageable);
         return findWritings.map(WritingResponseDto::new);
     }
@@ -82,12 +81,10 @@ public class WritingService {
     public Page<WritingResponseDto> findByUsername(Pageable pageable, String username) {
 
         Optional<Member> findMember = memberRepository.findByUsername(username);
-
         if (findMember.isEmpty()) {
             log.info("findMember Empty!");
             return null;
         }
-
         Page<Writing> findWritings = writingRepository.findByMember_Id(pageable, findMember.get().getId());
         return findWritings.map(WritingResponseDto::new);
     }
@@ -102,11 +99,9 @@ public class WritingService {
         if (findWriting.isEmpty()) {
             return null;
         }
-
         Writing writing = findWriting.get();
         writing.setTitle(dto.getTitle());
         writing.setContent(dto.getContent());
-
         return new WritingResponseDto(writing);
     }
 
@@ -115,13 +110,14 @@ public class WritingService {
      * id를 받아 삭제한다.
      */
     public void deleteWriting(Long writingId) {
+
         writingRepository.deleteById(writingId);
     }
 
     public void voteWriting(WritingVoteDto dto) {
+
         Writing findWriting = writingRepository.findById(dto.getWritingId()).orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
         Member findMember = memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new DataNotFoundException("Member Not Found"));
-
         findWriting.getVoteMembers().add(findMember);
     }
 
