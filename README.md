@@ -10,3 +10,4 @@
 * Thymeleaf
 * Pagination
 * Spring Security
+* querydsl 활용한 동적 쿼리
