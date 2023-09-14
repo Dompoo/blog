@@ -1,6 +1,7 @@
 package dompoo.blog.member;
 
 import dompoo.blog.comment.Comment;
+import dompoo.blog.reply.Reply;
 import dompoo.blog.writing.Writing;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,6 +32,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Writing> writing = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Reply> reply = new ArrayList<>();
 
     public Member(String username, String password) {
         this.username = username;

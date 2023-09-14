@@ -4,6 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import dompoo.blog.comment.Comment;
 import dompoo.blog.etc.ModifiedDate;
 import dompoo.blog.member.Member;
+import dompoo.blog.reply.Reply;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,9 @@ public class Writing extends ModifiedDate {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "writing", cascade = CascadeType.REMOVE)
+    private List<Reply> reply = new ArrayList<>();
 
     @ManyToMany
     private Set<Member> voteMembers = new HashSet<>();
