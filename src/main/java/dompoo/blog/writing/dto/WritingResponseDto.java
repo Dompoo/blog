@@ -3,6 +3,7 @@ package dompoo.blog.writing.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import dompoo.blog.comment.Comment;
 import dompoo.blog.writing.Writing;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WritingResponseDto {
 
     private Long id;

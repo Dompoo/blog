@@ -1,13 +1,14 @@
 package dompoo.blog.comment.dto;
 
 import dompoo.blog.comment.Comment;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentResponseDto {
 
     private Long commentId;

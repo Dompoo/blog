@@ -1,10 +1,11 @@
 package dompoo.blog.writing.dto;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WritingSaveDto {
 
     private String subject;
