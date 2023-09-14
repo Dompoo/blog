@@ -1,6 +1,7 @@
 package dompoo.blog.member;
 
 import dompoo.blog.exception.DataNotFoundException;
+import dompoo.blog.member.dto.MemberInfoDto;
 import dompoo.blog.member.dto.MemberResponseDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.dto.MemberUpdateDto;
@@ -76,5 +77,12 @@ public class MemberService {
         member.setUsername(dto.getUsername());
         member.setPassword(dto.getPassword());
         return new MemberResponseDto(member);
+    }
+
+    /**
+     * 내 정보 보기 메서드
+     */
+    public MemberInfoDto info(String username) {
+        return new MemberInfoDto(repository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("Member Not Found")));
     }
 }

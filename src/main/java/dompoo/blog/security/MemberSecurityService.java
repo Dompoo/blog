@@ -30,4 +30,6 @@ public class MemberSecurityService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         return new User(member.getUsername(), member.getPassword(), authorities);
     }
+
+    //TODO : 어댑터를 반환해서 어댑터 안의 유저DTO를 반환하도록
 }

@@ -1,16 +1,21 @@
 package dompoo.blog.member;
 
+import dompoo.blog.member.dto.MemberInfoDto;
 import dompoo.blog.member.dto.MemberSaveDto;
 import dompoo.blog.member.form.MemberCreateForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,38 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
     private final MemberService memberService;
-
-//    //멤버 추가
-//    @PutMapping("/members")
-//    public MemberResponseDto addMember(@RequestBody MemberSaveDto dto) {
-//        return memberService.join(dto);
-//    }
-//
-//    //멤버 전체 조회
-//    @GetMapping("/members")
-//    public Page<MemberResponseDto> findMembers(@PageableDefault(size = 15) Pageable pageable) {
-//        return memberService.findAll(pageable);
-//    }
-//
-//    //id로 멤버 단건 조회
-//    @GetMapping("/members/{memberId}")
-//    public MemberResponseDto findMember(@PathVariable("memberId") Long memberId) {
-//        return memberService.findOne(memberId);
-//    }
-//
-//    @PostMapping("/members/{memberId}")
-//    public MemberResponseDto updateMember(
-//            @PathVariable("memberId") Long memberId,
-//            @RequestBody MemberUpdateDto dto
-//    ) {
-//        return memberService.update(memberId, dto);
-//    }
-//
-//    @GetMapping("/securitytest")
-//    public ResponseEntity<String> test() {
-//        log.info("[Controller] security");
-//        return ResponseEntity.ok("token");
-//    }
 
     @GetMapping("/signup")
     public String signup(MemberCreateForm memberCreateForm) {
@@ -64,13 +37,10 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
-
         if (!memberCreateForm.getPassword().equals(memberCreateForm.getCheckPassword())) {
-            bindingResult.rejectValue("checkPassword", "passwordInCorrect",
-                    "패스워드가 일치하지 않습니다.");
+            bindingResult.rejectValue("checkPassword", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
             return "signup_form";
         }
-
         try {
             memberService.join(new MemberSaveDto(
                     memberCreateForm.getUsername(),
@@ -85,12 +55,21 @@ public class MemberController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-
         return "redirect:/";
     }
 
     @GetMapping("/login")
     public String login() {
+
         return "login_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/info")
+    public String info(Model model, Principal principal) {
+
+        MemberInfoDto findMember = memberService.info(principal.getName());
+        model.addAttribute("member", findMember);
+        return "member_info";
     }
 }

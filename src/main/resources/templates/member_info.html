@@ -1,0 +1,22 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <div>
+        <table class="table table-striped" th:object="${member}">
+            <tbody>
+            <tr>
+                <th>이름</th>
+                <td th:text="*{username}"></td>
+            </tr>
+            <tr>
+                <th>게시물 수</th>
+                <td th:text="*{writingCount}"></td>
+            </tr>
+            <tr>
+                <th>댓글 수</th>
+                <td th:text="*{commentCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>
