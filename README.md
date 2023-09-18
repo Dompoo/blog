@@ -11,3 +11,8 @@
 * Pagination
 * Spring Security
 * querydsl 활용한 동적 쿼리
+
+### 추가할 기능
+
+* 대댓글 기능
+* 서로이웃 기능
