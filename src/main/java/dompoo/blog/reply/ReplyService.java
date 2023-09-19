@@ -7,6 +7,7 @@ import dompoo.blog.member.Member;
 import dompoo.blog.member.MemberRepository;
 import dompoo.blog.reply.dto.ReplyResponseDto;
 import dompoo.blog.reply.dto.ReplySaveDto;
+import dompoo.blog.reply.dto.ReplyUpdateDto;
 import dompoo.blog.writing.Writing;
 import dompoo.blog.writing.WritingRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,20 @@ public class ReplyService {
         reply.setComment(findComment);
 
         return new ReplyResponseDto(replyRepository.save(reply));
+    }
+
+    public ReplyResponseDto findById(Long replyId) {
+        
+        Reply findReply = replyRepository.findById(replyId).orElseThrow(() -> new DataNotFoundException("Reply Not Found"));
+
+        return new ReplyResponseDto(findReply);
+    }
+
+    public ReplyResponseDto updateReply(ReplyUpdateDto dto) {
+
+        Reply findReply = replyRepository.findById(dto.getReplyId()).orElseThrow(() -> new DataNotFoundException("Reply Not Found"));
+        findReply.setContent(dto.getContent());
+
+        return new ReplyResponseDto(findReply);
     }
 }

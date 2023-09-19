@@ -1,16 +1,21 @@
 package dompoo.blog.reply;
 
 import dompoo.blog.member.MemberService;
+import dompoo.blog.reply.dto.ReplyResponseDto;
 import dompoo.blog.reply.dto.ReplySaveDto;
+import dompoo.blog.reply.dto.ReplyUpdateDto;
 import dompoo.blog.reply.form.ReplyCreateForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -42,6 +47,40 @@ public class ReplyController {
                 commentId
         ));
         return String.format("redirect:/writing/%s#comment_%s", writingId, commentId);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{replyId}")
+    public String modify(
+            ReplyCreateForm replyCreateForm,
+            @PathVariable("replyId") Long replyId,
+            Principal principal
+    ) {
+        ReplyResponseDto findReply = replyService.findById(replyId);
+        if (!findReply.getMember().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        replyCreateForm.setContent(findReply.getContent());
+        return "reply_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{replyId}")
+    public String modifyReply(
+            @Valid ReplyCreateForm replyCreateForm,
+            BindingResult bindingResult,
+            @PathVariable("replyId") Long replyId,
+            Principal principal
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "reply_form";
+        }
+        ReplyResponseDto findReply = replyService.findById(replyId);
+        if (!findReply.getMember().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        ReplyResponseDto updateReply = replyService.updateReply(new ReplyUpdateDto(replyId, replyCreateForm.getContent()));
+        return String.format("redirect:/writing/%s#comment_%s", updateReply.getWriting().getId(), updateReply.getComment().getId());
     }
 
 }
