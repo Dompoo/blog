@@ -5,14 +5,12 @@ import dompoo.blog.comment.dto.CommentSaveDto;
 import dompoo.blog.comment.dto.CommentUpdateDto;
 import dompoo.blog.comment.form.CommentCreateForm;
 import dompoo.blog.member.MemberService;
-import dompoo.blog.writing.WritingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +27,11 @@ import java.security.Principal;
 public class CommentController {
 
     private final CommentService commentService;
-    private final WritingService writingService;
     private final MemberService memberService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/save/{writingId}")
     public String saveComment(
-            Model model,
             @Valid CommentCreateForm commentCreateForm,
             @PathVariable("writingId") Long writingId,
             BindingResult bindingResult,
