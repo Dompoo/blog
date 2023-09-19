@@ -14,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -54,32 +52,28 @@ public class CommentService {
      * Id로 댓글 검색
      */
     public CommentResponseDto findById(Long commentId) {
-        Optional<Comment> findComment = commentRepository.findById(commentId);
-        if (findComment.isEmpty()) {
-            throw new DataNotFoundException("Comment Not Found");
-        }
 
-        return new CommentResponseDto(findComment.get());
+        Comment findComment = commentRepository.findById(commentId).orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
+
+        return new CommentResponseDto(findComment);
     }
 
     /**
      * 댓글 수정
      */
     public CommentResponseDto updateComment(CommentUpdateDto dto) {
-        Optional<Comment> findComment = commentRepository.findById(dto.getCommentId());
-        if (findComment.isEmpty()) {
-            throw new DataNotFoundException("Comment Not Found");
-        }
-        Comment comment = findComment.get();
-        comment.setContent(dto.getContent());
 
-        return new CommentResponseDto(comment);
+        Comment findComment = commentRepository.findById(dto.getCommentId()).orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
+        findComment.setContent(dto.getContent());
+
+        return new CommentResponseDto(findComment);
     }
 
     /**
      * 댓글 삭제
      */
     public void deleteComment(Long commentId) {
+
         commentRepository.deleteById(commentId);
     }
 
