@@ -52,4 +52,9 @@ public class ReplyService {
 
         return new ReplyResponseDto(findReply);
     }
+
+    public void deleteReply(Long replyId) {
+        
+        replyRepository.deleteById(replyId);
+    }
 }

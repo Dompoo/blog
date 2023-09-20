@@ -83,4 +83,17 @@ public class ReplyController {
         return String.format("redirect:/writing/%s#comment_%s", updateReply.getWriting().getId(), updateReply.getComment().getId());
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/delete/{replyId}")
+    public String deleteReply(
+            @PathVariable("replyId") Long replyId,
+            Principal principal
+    ) {
+        ReplyResponseDto findReply = replyService.findById(replyId);
+        if (!findReply.getMember().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        replyService.deleteReply(replyId);
+        return String.format("redirect:/writing/%s", findReply.getWriting().getId());
+    }
 }
