@@ -3,27 +3,23 @@ package dompoo.blog.repository.writing;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import dompoo.blog.writing.QWriting;
+import dompoo.blog.domain.QWriting;
 import dompoo.blog.domain.Writing;
 import dompoo.blog.request.writing.WritingSearchCondition;
-import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
-import static dompoo.blog.writing.QWriting.writing;
+import static dompoo.blog.domain.QWriting.writing;
 import static org.springframework.util.StringUtils.hasLength;
 
-
+@RequiredArgsConstructor
 public class WritingRepositoryImpl implements WritingRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-
-    public WritingRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
-    }
 
     @Override
     public Page<Writing> search(WritingSearchCondition condition, Pageable pageable) {
