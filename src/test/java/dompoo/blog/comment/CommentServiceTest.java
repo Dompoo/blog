@@ -1,13 +1,14 @@
 package dompoo.blog.comment;
 
-import dompoo.blog.comment.dto.CommentResponseDto;
-import dompoo.blog.comment.dto.CommentSaveDto;
-import dompoo.blog.member.MemberService;
-import dompoo.blog.member.dto.MemberResponseDto;
-import dompoo.blog.member.dto.MemberSaveDto;
-import dompoo.blog.writing.WritingService;
-import dompoo.blog.writing.dto.WritingResponseDto;
-import dompoo.blog.writing.dto.WritingSaveDto;
+import dompoo.blog.response.CommentResponseDto;
+import dompoo.blog.request.comment.CommentSaveDto;
+import dompoo.blog.service.CommentService;
+import dompoo.blog.service.MemberService;
+import dompoo.blog.response.MemberResponseDto;
+import dompoo.blog.request.member.MemberSaveDto;
+import dompoo.blog.service.WritingService;
+import dompoo.blog.response.WritingResponseDto;
+import dompoo.blog.request.writing.WritingSaveDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

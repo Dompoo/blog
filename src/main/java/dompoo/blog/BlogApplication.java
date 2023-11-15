@@ -1,14 +1,14 @@
 package dompoo.blog;
 
-import dompoo.blog.comment.CommentService;
-import dompoo.blog.comment.dto.CommentSaveDto;
-import dompoo.blog.member.MemberService;
-import dompoo.blog.member.dto.MemberResponseDto;
-import dompoo.blog.member.dto.MemberSaveDto;
-import dompoo.blog.security.SecurityConfig;
-import dompoo.blog.writing.WritingService;
-import dompoo.blog.writing.dto.WritingResponseDto;
-import dompoo.blog.writing.dto.WritingSaveDto;
+import dompoo.blog.service.CommentService;
+import dompoo.blog.request.comment.CommentSaveDto;
+import dompoo.blog.service.MemberService;
+import dompoo.blog.response.MemberResponseDto;
+import dompoo.blog.request.member.MemberSaveDto;
+import dompoo.blog.etc.security.SecurityConfig;
+import dompoo.blog.service.WritingService;
+import dompoo.blog.response.WritingResponseDto;
+import dompoo.blog.request.writing.WritingSaveDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,12 @@
 package dompoo.blog.writing;
 
-import dompoo.blog.member.MemberService;
-import dompoo.blog.member.dto.MemberResponseDto;
-import dompoo.blog.member.dto.MemberSaveDto;
-import dompoo.blog.writing.dto.WritingResponseDto;
-import dompoo.blog.writing.dto.WritingSaveDto;
-import dompoo.blog.writing.dto.WritingUpdateDto;
+import dompoo.blog.service.MemberService;
+import dompoo.blog.response.MemberResponseDto;
+import dompoo.blog.request.member.MemberSaveDto;
+import dompoo.blog.service.WritingService;
+import dompoo.blog.response.WritingResponseDto;
+import dompoo.blog.request.writing.WritingSaveDto;
+import dompoo.blog.request.writing.WritingUpdateDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

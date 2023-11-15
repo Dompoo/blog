@@ -1,8 +1,11 @@
 package dompoo.blog.member;
 
-import dompoo.blog.member.dto.MemberResponseDto;
-import dompoo.blog.member.dto.MemberSaveDto;
-import dompoo.blog.member.dto.MemberUpdateDto;
+import dompoo.blog.domain.Member;
+import dompoo.blog.response.MemberResponseDto;
+import dompoo.blog.request.member.MemberSaveDto;
+import dompoo.blog.request.member.MemberUpdateDto;
+import dompoo.blog.repository.MemberRepository;
+import dompoo.blog.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
