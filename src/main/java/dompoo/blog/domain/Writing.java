@@ -1,6 +1,5 @@
 package dompoo.blog.domain;
 
-import com.querydsl.core.annotations.QueryProjection;
 import dompoo.blog.etc.ModifiedDate;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -52,15 +51,11 @@ public class Writing extends ModifiedDate {
         this.content = content;
     }
 
-    @QueryProjection
     @Builder
-    public Writing(Long id, String title, String content, LocalDateTime modifiedDate, List<Comment> comment, Set<Member> voteMembers, Member member) {
-        this.id = id;
+    public Writing(String title, String content, Member member) {
         this.title = title;
         this.content = content;
-        this.modifiedDate = modifiedDate;
-        this.comment = comment;
-        this.voteMembers = voteMembers;
+        this.modifiedDate = LocalDateTime.now();
         setMember(member);
     }
 

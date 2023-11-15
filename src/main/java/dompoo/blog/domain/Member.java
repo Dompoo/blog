@@ -1,10 +1,7 @@
 package dompoo.blog.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +30,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> reply = new ArrayList<>();
 
+    @Builder
     public Member(String username, String password) {
         this.username = username;
         this.password = password;

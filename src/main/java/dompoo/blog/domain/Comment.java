@@ -41,7 +41,6 @@ public class Comment extends ModifiedDate {
         this.content = content;
         setMember(member);
         setWriting(writing);
-
     }
 
     //연관관계 편의 메서드
