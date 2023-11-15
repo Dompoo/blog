@@ -2,7 +2,7 @@ package dompoo.blog.response;
 
 import dompoo.blog.domain.Comment;
 import dompoo.blog.domain.Member;
-import dompoo.blog.etc.Reply;
+import dompoo.blog.domain.Reply;
 import dompoo.blog.domain.Writing;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,15 +1,15 @@
 package dompoo.blog.service;
 
-import dompoo.blog.response.CommentResponseDto;
-import dompoo.blog.request.comment.CommentSaveDto;
-import dompoo.blog.request.comment.CommentUpdateDto;
 import dompoo.blog.domain.Comment;
-import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.domain.Member;
+import dompoo.blog.domain.Writing;
+import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.repository.CommentRepository;
 import dompoo.blog.repository.MemberRepository;
-import dompoo.blog.domain.Writing;
 import dompoo.blog.repository.writing.WritingRepository;
+import dompoo.blog.request.comment.CommentSaveDto;
+import dompoo.blog.request.comment.CommentUpdateDto;
+import dompoo.blog.response.CommentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +30,15 @@ public class CommentService {
      */
     public CommentResponseDto saveComment(CommentSaveDto dto) {
 
-        Member findMember = memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new DataNotFoundException("Member Not Found"));
-        Writing findWriting = writingRepository.findById(dto.getWritingId()).orElseThrow(() -> new DataNotFoundException("Member Not Found"));
+        Member findMember = memberRepository.findById(dto.getMemberId())
+                .orElseThrow(() -> new DataNotFoundException("Member Not Found"));
+        Writing findWriting = writingRepository.findById(dto.getWritingId())
+                .orElseThrow(() -> new DataNotFoundException("Member Not Found"));
 
-        Comment comment = new Comment(dto.getContent());
-        comment.setMember(findMember);
-        comment.setWriting(findWriting);
+        Comment comment = Comment.builder()
+                .content(dto.getContent())
+                .member(findMember)
+                .writing(findWriting).build();
 
         Comment saveComment = commentRepository.save(comment);
         return new CommentResponseDto(saveComment);
@@ -55,7 +58,8 @@ public class CommentService {
      */
     public CommentResponseDto findById(Long commentId) {
 
-        Comment findComment = commentRepository.findById(commentId).orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
+        Comment findComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
 
         return new CommentResponseDto(findComment);
     }
@@ -65,7 +69,8 @@ public class CommentService {
      */
     public CommentResponseDto updateComment(CommentUpdateDto dto) {
 
-        Comment findComment = commentRepository.findById(dto.getCommentId()).orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
+        Comment findComment = commentRepository.findById(dto.getCommentId())
+                .orElseThrow(() -> new DataNotFoundException("Comment Not Found"));
         findComment.setContent(dto.getContent());
 
         return new CommentResponseDto(findComment);

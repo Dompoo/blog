@@ -1,13 +1,8 @@
-package dompoo.blog.etc;
+package dompoo.blog.domain;
 
-import dompoo.blog.domain.Comment;
-import dompoo.blog.domain.Member;
-import dompoo.blog.domain.Writing;
+import dompoo.blog.etc.ModifiedDate;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
@@ -40,24 +35,28 @@ public class Reply extends ModifiedDate {
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
-    public Reply(String content) {
+    @Builder
+    public Reply(String content, Member member, Writing writing, Comment comment) {
         this.content = content;
+        setMember(member);
+        setWriting(writing);
+        setComment(comment);
     }
 
     //연관관계 편의 메서드
-    public void setMember(Member member) {
+    private void setMember(Member member) {
         this.member = member;
         member.getReply().add(this);
     }
 
     //연관관계 편의 메서드
-    public void setWriting(Writing writing) {
+    private void setWriting(Writing writing) {
         this.writing = writing;
         writing.getReply().add(this);
     }
 
     //연관관계 편의 메서드
-    public void setComment(Comment comment) {
+    private void setComment(Comment comment) {
         this.comment = comment;
         comment.getReply().add(this);
     }

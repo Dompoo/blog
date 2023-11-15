@@ -1,6 +1,5 @@
 package dompoo.blog.domain;
 
-import dompoo.blog.etc.Reply;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

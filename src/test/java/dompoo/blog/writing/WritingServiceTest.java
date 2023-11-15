@@ -1,12 +1,12 @@
 package dompoo.blog.writing;
 
-import dompoo.blog.service.MemberService;
-import dompoo.blog.response.MemberResponseDto;
 import dompoo.blog.request.member.MemberSaveDto;
-import dompoo.blog.service.WritingService;
-import dompoo.blog.response.WritingResponseDto;
 import dompoo.blog.request.writing.WritingSaveDto;
 import dompoo.blog.request.writing.WritingUpdateDto;
+import dompoo.blog.response.MemberResponseDto;
+import dompoo.blog.response.WritingResponseDto;
+import dompoo.blog.service.MemberService;
+import dompoo.blog.service.WritingService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ class WritingServiceTest {
         WritingSaveDto writingSaveDto = new WritingSaveDto("title", "content", memberDto.getId());
         WritingResponseDto writingResponseDto = writingService.saveWrite(writingSaveDto);
 
-        assertThat(writingResponseDto.getTitle()).isEqualTo(writingSaveDto.getSubject());
+        assertThat(writingResponseDto.getTitle()).isEqualTo(writingSaveDto.getContent());
         assertThat(writingResponseDto.getContent()).isEqualTo(writingSaveDto.getTitle());
         assertThat(writingResponseDto.getUsername()).isEqualTo(memberDto.getUsername());
     }
@@ -77,7 +77,7 @@ class WritingServiceTest {
 
         WritingResponseDto findWriting = writingService.findOne(writingResponseDto.getId());
 
-        assertThat(findWriting.getTitle()).isEqualTo(writingSaveDto1.getSubject());
+        assertThat(findWriting.getTitle()).isEqualTo(writingSaveDto1.getContent());
         assertThat(findWriting.getContent()).isEqualTo(writingSaveDto1.getTitle());
     }
 

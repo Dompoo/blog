@@ -1,8 +1,8 @@
 package dompoo.blog.service;
 
+import dompoo.blog.domain.Member;
 import dompoo.blog.domain.Writing;
 import dompoo.blog.exception.DataNotFoundException;
-import dompoo.blog.domain.Member;
 import dompoo.blog.repository.MemberRepository;
 import dompoo.blog.repository.writing.WritingRepository;
 import dompoo.blog.request.writing.WritingSaveDto;
@@ -34,9 +34,13 @@ public class WritingService {
      */
     public WritingResponseDto saveWrite(WritingSaveDto dto) {
 
-        Member findMember = memberRepository.findById(dto.getMemberId()).orElse(null);
-        Writing writing = new Writing(dto.getSubject(), dto.getTitle());
-        writing.setMember(findMember);
+        Member findMember = memberRepository.findById(dto.getMemberId())
+                .orElse(null);
+
+        Writing writing = Writing.builder()
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .member(findMember).build();
         Writing saveWriting = writingRepository.save(writing);
         return new WritingResponseDto(saveWriting);
     }
@@ -57,7 +61,8 @@ public class WritingService {
      */
     public Page<WritingResponseDto> findByCond(WritingSearchCondition condition, Pageable pageable) {
 
-        return writingRepository.search(condition, pageable).map(WritingResponseDto::new);
+        return writingRepository.search(condition, pageable)
+                .map(WritingResponseDto::new);
     }
 
     /**
@@ -122,8 +127,10 @@ public class WritingService {
 
     public void voteWriting(WritingVoteDto dto) {
 
-        Writing findWriting = writingRepository.findById(dto.getWritingId()).orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
-        Member findMember = memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new DataNotFoundException("Member Not Found"));
+        Writing findWriting = writingRepository.findById(dto.getWritingId())
+                .orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
+        Member findMember = memberRepository.findById(dto.getMemberId())
+                .orElseThrow(() -> new DataNotFoundException("Member Not Found"));
         findWriting.getVoteMembers().add(findMember);
     }
 

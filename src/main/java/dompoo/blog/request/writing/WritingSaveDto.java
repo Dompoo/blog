@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WritingSaveDto {
 
-    private String subject;
     private String title;
+    private String content;
     private Long memberId;
 
     public WritingSaveDto(String title, String content, Long memberId) {
-        this.subject = title;
-        this.title = content;
+        this.title = title;
+        this.content = content;
         this.memberId = memberId;
     }
 }

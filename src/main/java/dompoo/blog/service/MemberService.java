@@ -2,11 +2,11 @@ package dompoo.blog.service;
 
 import dompoo.blog.domain.Member;
 import dompoo.blog.exception.DataNotFoundException;
+import dompoo.blog.repository.MemberRepository;
 import dompoo.blog.request.member.MemberInfoDto;
-import dompoo.blog.response.MemberResponseDto;
 import dompoo.blog.request.member.MemberSaveDto;
 import dompoo.blog.request.member.MemberUpdateDto;
-import dompoo.blog.repository.MemberRepository;
+import dompoo.blog.response.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,12 +54,14 @@ public class MemberService {
      */
     public MemberResponseDto findOne(Long memberId) {
         Optional<Member> findMember = repository.findById(memberId);
-        return findMember.map(MemberResponseDto::new).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
+        return findMember.map(MemberResponseDto::new)
+                .orElseThrow(() -> new DataNotFoundException("siteuser not found"));
     }
 
     public MemberResponseDto findByUsername(String username) {
         Optional<Member> findMember = repository.findByUsername(username);
-        return findMember.map(MemberResponseDto::new).orElseThrow(() -> new DataNotFoundException("siteuser not found"));
+        return findMember.map(MemberResponseDto::new)
+                .orElseThrow(() -> new DataNotFoundException("siteuser not found"));
     }
 
     /**
@@ -85,6 +87,7 @@ public class MemberService {
      * 내 정보 보기 메서드
      */
     public MemberInfoDto info(String username) {
-        return new MemberInfoDto(repository.findByUsername(username).orElseThrow(() -> new DataNotFoundException("Member Not Found")));
+        return new MemberInfoDto(repository.findByUsername(username)
+                .orElseThrow(() -> new DataNotFoundException("Member Not Found")));
     }
 }

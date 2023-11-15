@@ -1,14 +1,8 @@
 package dompoo.blog.domain;
 
 import dompoo.blog.etc.ModifiedDate;
-import dompoo.blog.domain.Member;
-import dompoo.blog.etc.Reply;
-import dompoo.blog.domain.Writing;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
@@ -42,18 +36,22 @@ public class Comment extends ModifiedDate {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<Reply> reply = new ArrayList<>();
 
-    public Comment(String content) {
+    @Builder
+    public Comment(String content, Member member, Writing writing) {
         this.content = content;
+        setMember(member);
+        setWriting(writing);
+
     }
 
     //연관관계 편의 메서드
-    public void setMember(Member member) {
+    private void setMember(Member member) {
         this.member = member;
         member.getComment().add(this);
     }
 
     //연관관계 편의 메서드
-    public void setWriting(Writing writing) {
+    private void setWriting(Writing writing) {
         this.writing = writing;
         writing.getComment().add(this);
     }
