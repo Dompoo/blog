@@ -1,14 +1,12 @@
 package dompoo.blog;
 
-import dompoo.blog.service.CommentService;
-import dompoo.blog.request.comment.CommentSaveDto;
-import dompoo.blog.service.MemberService;
-import dompoo.blog.response.MemberResponseDto;
-import dompoo.blog.request.member.MemberSaveDto;
+import dompoo.blog.domain.Comment;
+import dompoo.blog.domain.Member;
+import dompoo.blog.domain.Writing;
 import dompoo.blog.etc.security.SecurityConfig;
-import dompoo.blog.service.WritingService;
-import dompoo.blog.response.WritingResponseDto;
-import dompoo.blog.request.writing.WritingSaveDto;
+import dompoo.blog.repository.CommentRepository;
+import dompoo.blog.repository.MemberRepository;
+import dompoo.blog.repository.writing.WritingRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,25 +31,40 @@ public class BlogApplication {
 	@Profile("local")
 	@RequiredArgsConstructor
 	public class localDataInit {
-		private final CommentService commentService;
-		private final WritingService writingService;
-		private final MemberService memberService;
+		private final CommentRepository commentRepository;
+		private final WritingRepository writingRepository;
+		private final MemberRepository memberRepository;
 
 		@PostConstruct
 		public void init() {
 			log.info("웹 테스트 데이터 init");
 
-			MemberResponseDto memberDto1 = memberService.join(new MemberSaveDto("윤동주", "password1"));
-			MemberResponseDto memberDto2 = memberService.join(new MemberSaveDto("나태주", "password2"));
-			memberService.join(new MemberSaveDto("asd", "asd"));
+			Member member1 = memberRepository.save(Member.builder()
+					.username("윤동주")
+					.password("password1")
+					.build());
+
+			Member member2 = memberRepository.save(Member.builder()
+					.username("나태주")
+					.password("password2")
+					.build());
+
+			Member member3 = memberRepository.save(Member.builder()
+					.username("asd")
+					.password("asd")
+					.build());
 
 			for (int i = 1; i <= 100; i++) {
-				writingService.saveWrite(new WritingSaveDto("writing" + i, "content" + i, memberDto1.getId()));
+				writingRepository.save(Writing.builder()
+						.title(i + "번 글 제목")
+						.content(i + "번 글 내용")
+						.member(member3)
+						.build());
 			}
 
-			WritingResponseDto writingDto1 = writingService.saveWrite(new WritingSaveDto(
-					"서시",
-					"죽는 날까지 하늘을 우러러\n" +
+			Writing writing1 = writingRepository.save(Writing.builder()
+					.title("서시")
+					.content("죽는 날까지 하늘을 우러러\n" +
 							"한 점 부끄럼이 없기를,\n" +
 							"잎새에 이는 바람에도 \n" +
 							"나는 괴로워했다.\n" +
@@ -59,11 +72,13 @@ public class BlogApplication {
 							"모든 죽어가는 것을 사랑해야지\n" +
 							"그리고 나한테 주어진 길을 \n" +
 							"걸어가야겠다.\n\n" +
-							"오늘 밤에도 별이 바람에 스치운다.",
-					memberDto1.getId()));
-			WritingResponseDto writingDto2 = writingService.saveWrite(new WritingSaveDto(
-					"내가 좋아하는 사람",
-					"내가 좋아하는 사람은\n" +
+							"오늘 밤에도 별이 바람에 스치운다.")
+					.member(member1)
+					.build());
+
+			Writing writing2 = writingRepository.save(Writing.builder()
+					.title("내가 좋아하는 사람")
+					.content("내가 좋아하는 사람은\n" +
 							"슬퍼할 일을 마땅히 슬퍼하고\n" +
 							"괴로워할 일을 마땅히\n" +
 							"괴로워하는 사람\n\n" +
@@ -75,11 +90,21 @@ public class BlogApplication {
 							"내가 좋아하는 사람은\n" +
 							"미워할 것을 마땅히 미워하고\n" +
 							"사랑할 것을 마땅히 사랑하는\n" +
-							"그저 보통의 사람",
-					memberDto2.getId()));
+							"그저 보통의 사람")
+					.member(member2)
+					.build());
 
-			commentService.saveComment(new CommentSaveDto("님 짱이네요.", writingDto1.getId(), memberDto2.getId()));
-			commentService.saveComment(new CommentSaveDto("님 넘 멋져요.", writingDto2.getId(), memberDto1.getId()));
+			commentRepository.save(Comment.builder()
+					.content("잘 봤습니다.")
+					.writing(writing1)
+					.member(member2)
+					.build());
+
+			commentRepository.save(Comment.builder()
+					.content("잘 봤습니다.22")
+					.writing(writing2)
+					.member(member1)
+					.build());
 		}
 	}
 

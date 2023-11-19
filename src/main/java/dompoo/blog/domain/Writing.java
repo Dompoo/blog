@@ -46,11 +46,6 @@ public class Writing extends ModifiedDate {
     @ManyToMany
     private Set<Member> voteMembers = new HashSet<>();
 
-    public Writing(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     @Builder
     public Writing(String title, String content, Member member) {
         this.title = title;
