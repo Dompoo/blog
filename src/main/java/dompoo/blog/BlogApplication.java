@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -34,6 +35,7 @@ public class BlogApplication {
 		private final CommentRepository commentRepository;
 		private final WritingRepository writingRepository;
 		private final MemberRepository memberRepository;
+		private final PasswordEncoder encoder;
 
 		@PostConstruct
 		public void init() {
@@ -41,17 +43,17 @@ public class BlogApplication {
 
 			Member member1 = memberRepository.save(Member.builder()
 					.username("윤동주")
-					.password("password1")
+					.password(encoder.encode("asd"))
 					.build());
 
 			Member member2 = memberRepository.save(Member.builder()
 					.username("나태주")
-					.password("password2")
+					.password(encoder.encode("asd"))
 					.build());
 
 			Member member3 = memberRepository.save(Member.builder()
 					.username("asd")
-					.password("asd")
+					.password(encoder.encode("asd"))
 					.build());
 
 			for (int i = 1; i <= 100; i++) {
