@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 public class WritingCreateForm {
 
-    @Size(max = 30, message = "제목은 30자를 초과할 수 없습니다.")
-    @NotEmpty(message = "제목은 비울 수 없습니다.")
+    @Size(max = 30, message = "글 제목은 30자를 초과할 수 없습니다.")
+    @NotEmpty(message = "글 제목은 비울 수 없습니다.")
     private String title;
 
-    @NotEmpty(message = "내용은 비울 수 없습니다.")
+    @NotEmpty(message = "글 내용은 비울 수 없습니다.")
     private String content;
 
 }
