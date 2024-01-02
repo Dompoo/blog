@@ -104,16 +104,13 @@ public class WritingService {
      * 글 수정 메서드
      * id, title, content를 받아 title, content를 수정한다.
      */
-    public WritingResponseDto updateWriting(WritingUpdateDto dto) {
-        Optional<Writing> findWriting = writingRepository.findById(dto.getWritingId());
+    public void updateWriting(WritingUpdateDto dto) {
 
-        if (findWriting.isEmpty()) {
-            return null;
-        }
-        Writing writing = findWriting.get();
-        writing.setTitle(dto.getTitle());
-        writing.setContent(dto.getContent());
-        return new WritingResponseDto(writing);
+        Writing findWriting = writingRepository.findById(dto.getWritingId())
+                .orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
+
+        findWriting.setTitle(dto.getTitle());
+        findWriting.setContent(dto.getContent());
     }
 
     /**
@@ -131,6 +128,8 @@ public class WritingService {
                 .orElseThrow(() -> new DataNotFoundException("Writing Not Found"));
         Member findMember = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new DataNotFoundException("Member Not Found"));
+
+        //TODO 이미 추천을 누른 상태면 오류메시지 출력
         findWriting.getVoteMembers().add(findMember);
     }
 
