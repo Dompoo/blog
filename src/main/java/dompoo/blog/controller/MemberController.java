@@ -49,7 +49,7 @@ public class MemberController {
                     memberCreateForm.getPassword()
             ));
         } catch (DataIntegrityViolationException e) {
-            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            bindingResult.reject("signupFailed", "이미 등록된 사용자명입니다.");
             return "signup_form";
         } catch (Exception e) {
             bindingResult.reject("signupFailed", e.getMessage());
