@@ -1,9 +1,9 @@
 package dompoo.blog.controller;
 
-import dompoo.blog.service.MemberService;
+import dompoo.blog.request.form.MemberCreateForm;
 import dompoo.blog.request.member.MemberInfoDto;
 import dompoo.blog.request.member.MemberSaveDto;
-import dompoo.blog.request.form.MemberCreateForm;
+import dompoo.blog.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +27,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/signup")
-    public String signup(MemberCreateForm memberCreateForm) {
+    public String signup(Model model, MemberCreateForm memberCreateForm) {
 
+        model.addAttribute("memberCreateForm", memberCreateForm);
         return "signup_form";
     }
 
@@ -48,11 +49,9 @@ public class MemberController {
                     memberCreateForm.getPassword()
             ));
         } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "signup_form";
         } catch (Exception e) {
-            e.printStackTrace();
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
