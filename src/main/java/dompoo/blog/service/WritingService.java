@@ -2,6 +2,7 @@ package dompoo.blog.service;
 
 import dompoo.blog.domain.Member;
 import dompoo.blog.domain.Writing;
+import dompoo.blog.exception.AlreadyVotedException;
 import dompoo.blog.exception.DataNotFoundException;
 import dompoo.blog.repository.MemberRepository;
 import dompoo.blog.repository.writing.WritingRepository;
@@ -129,7 +130,9 @@ public class WritingService {
         Member findMember = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new DataNotFoundException("Member Not Found"));
 
-        //TODO 이미 추천을 누른 상태면 오류메시지 출력
+        if (findWriting.getVoteMembers().contains(findMember)) {
+            throw new AlreadyVotedException("already voted");
+        }
         findWriting.getVoteMembers().add(findMember);
     }
 

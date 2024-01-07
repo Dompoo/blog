@@ -1,15 +1,16 @@
 package dompoo.blog.controller;
 
+import dompoo.blog.exception.AlreadyVotedException;
 import dompoo.blog.request.form.CommentCreateForm;
+import dompoo.blog.request.form.WritingCreateForm;
 import dompoo.blog.request.writing.WritingSaveDto;
 import dompoo.blog.request.writing.WritingSearchCondition;
 import dompoo.blog.request.writing.WritingUpdateDto;
 import dompoo.blog.request.writing.WritingVoteDto;
+import dompoo.blog.response.MemberResponseDto;
 import dompoo.blog.response.WritingResponseDto;
 import dompoo.blog.service.MemberService;
-import dompoo.blog.response.MemberResponseDto;
 import dompoo.blog.service.WritingService;
-import dompoo.blog.request.form.WritingCreateForm;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +43,6 @@ public class WritingController {
                        @RequestParam(value = "writingContent", required = false) String writingContent
                        ) {
 
-        log.info("WritingController - list 호출!");
-        log.info("page = {}, username = {}, title = {}, content = {}", page, username, writingTitle, writingContent);
         WritingSearchCondition cond = new WritingSearchCondition(username, writingTitle, writingContent);
         Page<WritingResponseDto> writingList = writingService.findByCond(cond, PageRequest.of(page, 10));
         model.addAttribute("writingList", writingList);
@@ -122,10 +121,13 @@ public class WritingController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String voteWriting(@PathVariable("id") Long writingId, Principal principal) {
+    public String voteWriting(Model model, @PathVariable("id") Long writingId, Principal principal) {
         MemberResponseDto findMember = memberService.findByUsername(principal.getName());
-
-        writingService.voteWriting(new WritingVoteDto(writingId, findMember.getId()));
+        try {
+            writingService.voteWriting(new WritingVoteDto(writingId, findMember.getId()));
+        } catch (AlreadyVotedException e) {
+            model.addAttribute("alertMessage", "이미 추천한 게시물입니다.");
+        }
         return String.format("redirect:/writing/%s", writingId);
     }
 }

@@ -26,13 +26,14 @@
                th:if="${writing.username != null and #authentication.getPrincipal().getUsername() == writing.username}"
                th:text="삭제">
             </a>
+            <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+               th:data-uri="@{|/writing/vote/${writing.id}|}">공감
+                <span class="badge rounded-pill bg-success" th:text="${writing.votes}"></span>
+            </a>
         </div>
-        <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
-           th:data-uri="@{|/writing/vote/${writing.id}|}">공감
-            <span class="badge rounded-pill bg-success" th:text="${writing.votes}"></span>
-        </a>
     </div>
     <!-- 게시글 표시 끝-->
+    <!-- 뒤로가기 버튼-->
     <div class="row">
         <div class="col-md-1">
             <form th:action="@{/writing}" method="get">
