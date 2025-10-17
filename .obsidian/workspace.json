@@ -130,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "RealMySQL.md",
+                "file": "데이터베이스/RealMySQL.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -150,7 +150,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -167,7 +167,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e0f41907a8bebf4d",
+  "active": "28da5ade31a9e947",
   "lastOpenFiles": [
     "데이터베이스/락/락.md",
     "데이터베이스/락/데드락.md",
