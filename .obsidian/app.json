@@ -1,0 +1,12 @@
+{
+  "promptDelete": true,
+  "livePreview": true,
+  "attachmentFolderPath": "_첨부파일",
+  "showLineNumber": false,
+  "spellcheck": false,
+  "foldIndent": false,
+  "alwaysUpdateLinks": true,
+  "propertiesInDocument": "visible",
+  "foldHeading": false,
+  "showInlineTitle": true
+}

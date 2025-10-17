@@ -1,0 +1,216 @@
+{
+  "main": {
+    "id": "999582997569090c",
+    "type": "split",
+    "children": [
+      {
+        "id": "d87ca41e42a82aa8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "378f60051ace9a6c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "클러스터링 인덱스.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "클러스터링 인덱스"
+            }
+          },
+          {
+            "id": "e0f41907a8bebf4d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "데이터베이스/MVCC.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "MVCC"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "eda7fa99eacaf9af",
+    "type": "split",
+    "children": [
+      {
+        "id": "dca85f58d6a56b84",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fa50a6157bfbf058",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "1e1d1b541de41248",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "3ad005573c69f7c1",
+    "type": "split",
+    "children": [
+      {
+        "id": "339588d1adaf72b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c8e2ad9309d15ed5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "데이터베이스/RealMySQL.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "RealMySQL 의 나가는 링크"
+            }
+          },
+          {
+            "id": "727ae43f83ffcdf0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "28da5ade31a9e947",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "RealMySQL.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "RealMySQL 의 개요"
+            }
+          },
+          {
+            "id": "9d69b99ddd88c067",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "publish:변경사항 게재": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "e0f41907a8bebf4d",
+  "lastOpenFiles": [
+    "데이터베이스/인덱스/클러스터링 인덱스.md",
+    "데이터베이스/RealMySQL.md",
+    "데이터베이스/트랜잭션 사이의 읽기 문제들.md",
+    "데이터베이스/트랜잭션 격리 레벨.md",
+    "데이터베이스/인덱스/인덱스 미션.md",
+    "데이터베이스/락/락.md",
+    "데이터베이스/락/데드락.md",
+    "데이터베이스/인덱스/인덱스 잘 걸기.md",
+    "데이터베이스/인덱스/인덱스를 읽는 방법.md",
+    "데이터베이스/인덱스/B+Tree 인덱스.md",
+    "데이터베이스/인덱스/Hash 인덱스.md",
+    "데이터베이스/인덱스/R-Tree 인덱스.md",
+    "_첨부파일/Pasted image 20251017142904.png",
+    "_첨부파일/Pasted image 20251017142852.png",
+    "데이터베이스/MVCC.md",
+    "데이터베이스/락",
+    "데이터베이스/인덱스",
+    "_첨부파일/Pasted image 20251017122736.png",
+    "_첨부파일/Pasted image 20251017122515.png",
+    "_데일리/2025-10-17.md",
+    "_첨부파일/Pasted image 20251017094103.png",
+    "자료구조",
+    "B+Tree의 성능에 영향을 미치는 요소.md",
+    "B+Tree 저장 방식.md",
+    "_첨부파일/Pasted image 20251017094702.png",
+    "_",
+    "DB/B-Tree.md",
+    "데이터베이스",
+    "_데일리",
+    "_데일리/2025-10-16.md",
+    "Phantom Read.md",
+    "_첨부파일/Pasted image 20251016134116.png",
+    "_첨부파일/Pasted image 20251016133818.png",
+    "무제.base",
+    "무제 1.base",
+    "무제 2.base",
+    "_첨부파일",
+    "인덱스.md",
+    "무제 3.canvas",
+    "무제 2.canvas",
+    "무제 1.canvas",
+    "무제.canvas",
+    "환영합니다!.md"
+  ]
+}
