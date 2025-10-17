@@ -6,6 +6,3 @@ node_modules/
 .quartz-cache/
 public/
 .DS_Store
-
-# Package manager
-package-lock.json
