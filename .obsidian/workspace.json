@@ -154,7 +154,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -167,7 +168,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9d69b99ddd88c067",
+  "active": "e0f41907a8bebf4d",
   "lastOpenFiles": [
     "데이터베이스/락/락.md",
     "데이터베이스/락/데드락.md",
