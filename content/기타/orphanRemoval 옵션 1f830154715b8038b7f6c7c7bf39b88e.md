@@ -1,0 +1,9 @@
+# orphanRemoval 옵션
+
+작성일: 2025년 5월 19일 오후 7:43
+카테고리: JPA
+
+- 고아 객체를 제거한다는 뜻이다.
+- Team이 List<Member>를 가지고 있을 때,
+    - `Team.getMembers.remove(member)` 를 호출하는 것만으로 Member 를 삭제하는 쿼리가 나간다.
+- Team이라는 객체가 Member에 대한 완전한 통제권을 가질 때 사용하면 좋을 것 같다.

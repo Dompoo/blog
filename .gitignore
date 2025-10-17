@@ -1,1 +1,11 @@
-.obsidian/
+# Obsidian
+content/.obsidian/
+
+# Quartz
+node_modules/
+.quartz-cache/
+public/
+.DS_Store
+
+# Package manager
+package-lock.json
