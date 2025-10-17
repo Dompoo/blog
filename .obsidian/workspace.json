@@ -150,7 +150,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -167,7 +167,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "28da5ade31a9e947",
+  "active": "9d69b99ddd88c067",
   "lastOpenFiles": [
     "데이터베이스/락/락.md",
     "데이터베이스/락/데드락.md",
