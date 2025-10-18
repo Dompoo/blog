@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "ko-KR",
-    baseUrl: "dompoo.github.io/obsidian_vault",
+    baseUrl: "dompoo.github.io/blog",
     ignorePatterns: ["private", "templates", ".obsidian", "_데일리"],
     defaultDateType: "modified",
     theme: {
