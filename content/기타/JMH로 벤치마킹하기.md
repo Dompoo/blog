@@ -105,7 +105,7 @@ public class CourseRepositoryBenchmark {
 
 ## 벤치마킹 결과
 
-![image.png](JMH%EB%A1%9C%20%EB%B2%A4%EC%B9%98%EB%A7%88%ED%82%B9%ED%95%98%EA%B8%B0%2023530154715b807da265e49e51bae30c/image.png)
+![[JMH로 벤치마킹하기_image.png]]
 
 - 역시나 postgis가 더 빨랐지만, 엄청나게 차이난다…
 - 100개 코스만에 0.1초 이상 차이나는 건데, 데이터가 더 많아진다면? 꽤나 고려해야 하는 부분이다.

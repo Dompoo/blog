@@ -25,4 +25,4 @@
     
     - `JdbcConnectionPool` 구현체 코드
     
-    ![image.png](DB%EC%99%80%20%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0%2027830154715b80a182fbf6a647dfb960/image.png)
+    ![[DB와 연결하기_image.png]]

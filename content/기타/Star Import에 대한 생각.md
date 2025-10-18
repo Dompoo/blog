@@ -17,4 +17,4 @@
         
 - 근데, 그러면 명확하고 동일하지 않을 클래스는 괜찮을듯?
 
-![image.png](Star%20Import%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%83%9D%EA%B0%81%201ee30154715b80ae9cecefca8818df98/image.png)
+![[Star Import에 대한 생각_image.png]]

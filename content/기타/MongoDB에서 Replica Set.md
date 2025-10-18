@@ -19,7 +19,7 @@
 - **FailOver** : Primary가 죽으면 Secondary가 자동으로 Primary로 승격되어, SPOF를 해결
 - **Oplog** : ****Primary에서 일어나는 모든 변경을 로그로 기록, Secondary에서는 이를 읽어서 반영한다.
 
-![image.png](MongoDB%EC%97%90%EC%84%9C%20Replica%20Set%2027230154715b80c29636ed9b8f724eeb/image.png)
+![[MongoDB에서 Replica Set_image.png]]
 
 ### 선출 메커니즘
 

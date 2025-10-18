@@ -40,6 +40,6 @@ class Member { // <- find 한 객체는 그대로이다.
 }
 ```
 
-![image.png](JPA%20%ED%94%84%EB%A1%9D%EC%8B%9C%201f930154715b80a39cc5de075fbf309a/image.png)
+![[JPA 프록시_image.png]]
 
 - 해당 객체들의 메서드(특히 SQL이 필요한 메서드)를 호출한 순간 Lazy-Loading 된다.

@@ -50,7 +50,7 @@ public OpenApiCustomizer exampleInjector() {
 - 위와 같은 설정 빈을 등록하도록 했다. (그룹이 있는 경우에는 각 그룹에 `addOpenApiCustomizer()` 을 통해 위 빈을 넣어줘야 한다.)
 - 위 빈 덕분에 이제 발생 가능한 모든 예외에 대한 예외 응답 json이 openapi에 등록된다.
     
-    ![image.png](Swagger%EC%97%90%EC%84%9C%20%EB%8F%99%EC%9D%BC%ED%95%9C%20%EA%B0%9D%EC%B2%B4%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%AC%EB%9F%AC%20Example%EC%9D%84%20%EA%B3%A8%EB%9D%BC%EC%84%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%2020b30154715b800c9c61e935bad81c1e/image.png)
+    ![[Swagger에서 동일한 객체에 대한 여러 Example을 골라서 사용하기_image.png]]
     
 
 ### Example 사용하기
@@ -59,7 +59,7 @@ public OpenApiCustomizer exampleInjector() {
 - `$ref` 를 통해서 각 response에 example을 매칭시켜줘야 한다.
 - 원하는 최종 형태는 다음과 같다.
     
-    ![image.png](Swagger%EC%97%90%EC%84%9C%20%EB%8F%99%EC%9D%BC%ED%95%9C%20%EA%B0%9D%EC%B2%B4%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%AC%EB%9F%AC%20Example%EC%9D%84%20%EA%B3%A8%EB%9D%BC%EC%84%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%2020b30154715b800c9c61e935bad81c1e/image%201.png)
+    ![[Swagger에서 동일한 객체에 대한 여러 Example을 골라서 사용하기_image 1.png]]
     
 - 직접 json 또는 yml 파일을 만들어서 지정해줘도 되지만 나는 springdoc을 통해 openapi 명세를 만들고 있었기 때문에, 애노테이션 기반으로 설정해주었다.
     
@@ -87,4 +87,4 @@ public OpenApiCustomizer exampleInjector() {
 
 ## 최종 결과물
 
-![image.png](Swagger%EC%97%90%EC%84%9C%20%EB%8F%99%EC%9D%BC%ED%95%9C%20%EA%B0%9D%EC%B2%B4%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%AC%EB%9F%AC%20Example%EC%9D%84%20%EA%B3%A8%EB%9D%BC%EC%84%9C%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%2020b30154715b800c9c61e935bad81c1e/image%202.png)
+![[Swagger에서 동일한 객체에 대한 여러 Example을 골라서 사용하기_image 2.png]]
