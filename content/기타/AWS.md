@@ -16,7 +16,7 @@
 
 ---
 
-![image.png](AWS%2023c30154715b80a8b713d5f840508495/image.png)
+![image.png](../_첨부파일/AWS_image.png)
 
 ### VPC(Virtual Private Cloud)
 
