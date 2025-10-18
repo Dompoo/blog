@@ -3,6 +3,7 @@
 - 기본적으로는 `SimpleAsyncTaskExecutor`가 구현되어 있다.
 - 해당 구현체는 매번 새로운 스레드를 생성하여 작동하므로 비효율적이며, 위험하다.
 - 따라서 사용할 때에는 다른 구현체를 설정하여 빈으로 등록하는 것이 권장된다.
+- [[TaskDecorator]]를 통해서 실행 전후에 추가 작업을 해줄 수 있다.
 ## 스레드풀 Executor
 ```java
 @Bean(name = "threadPoolTaskExecutor")  
