@@ -1,0 +1,7 @@
+- Session은 하이버네이트의 EntityManager 용어이다.
+    - 사실 하이버네이트가 원조라서 EntityManager가 나중에 나오긴 했다.
+- OSIV 옵션은 EntityManager를 뷰까지 열어두는 것이다.
+    - 하이버네이트 시절에는 Open-Session-In-View 니까, 말이 됐다.
+- 하지만 OSIV라는 옵션명은 유지되면서, JPA가 들어오자 EntityManager를 뷰까지 열어두기 위해서 OSIV라는 용어를 그대로 썼다.
+    - 사실 OEIV 가 더 맞는 말이다.
+- 스프링은 좀 애매하니까~ `Open-In-view` 라고 한다.

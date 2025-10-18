@@ -1,8 +1,3 @@
-# Jakarta EE
-
-작성일: 2025년 9월 12일 오후 3:20
-카테고리: ETC
-
 - Standard Edition에 추가 스펙을 더한 Enterprise Edition이다.
 - 즉, 상용 애플리케이션을 위한 표준이다.
 - 트랜잭션 관리, 보안, 확장성, 분산 처리, 서블릿, JSP, EJB 등의 스펙을 정의한다.

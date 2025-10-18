@@ -1,9 +1,3 @@
-# RestClient 구조
-
-작성일: 2025년 9월 23일 오후 3:35
-
-## 간단한 흐름
-
 - `RestClient` 는 내부적으로 `ClientHttpRequestFactory` 를 지니고 있으며, 해당 팩토리의 구현에 따라 요청 방식이 달라진다. (전략 패턴)
 - `ClientHttpRequestFactory` 는 `ClientHttpRequest` 를 생성하게 된다.
 
