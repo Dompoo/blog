@@ -7,7 +7,7 @@
 ## 스레드풀 Executor
 ```java
 @Bean(name = "threadPoolTaskExecutor")  
-public Executor threadPoolTaskExecutor() {  
+public AsyncTaskExecutor threadPoolTaskExecutor() {  
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();  
     executor.setCorePoolSize(5);  
     executor.setMaxPoolSize(10);  
