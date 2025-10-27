@@ -1,4 +1,5 @@
-- Fetch Join을 하지 않아도 값을 보고 연관된 엔티티를 미리 땡겨오는 기술이다.
+- [[N+1 문제 상황 총정리|N+1 문제]]를 해결하기 위한 방법으로, Fetch Join을 하지 않아도 값을 보고 연관된 엔티티를 미리 땡겨오는 기술이다.
+- [[FetchType|LAZY 로딩]]을 사용할 때 발생할 수 있는 성능 문제를 해결한다.
 
 ```java
 @EntityGraph(attributePaths = {"reservations"})
