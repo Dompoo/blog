@@ -1,55 +1,9 @@
-## IoC
-
-> 제어의 역전
-> 
-- 기존에는 객체자신에게 필요한 의존성들을 직접 제어했다.
-- IoC를 하게되면, 그런 의존성 제어의 역할을 다른 객체에게 위임한다.
-    - IoC 객체가 의존성을 주입한다.
-    - 심지어 해당 객체를 직접 생성하기까지 한다.
-
-## DI
-
-> 의존성 주입
-> 
-- 제어의 역전을 하게되면 자연스럽게 DI 형태가 나온다.
-- 생성자나 setter 등을 통해서 의존성을 외부에서 넣어주는 것이다.
-- 이러면 주입받는 객체에서는 구현체에 의존할 필요없다.
-- DIP를 지키는 방법 중 하나이다.
-
-## 스프링에서 만들기
-
-```java
-@Configuration
-public class AppConfig {
-	
-	@Bean
-	public MemberService memberService() {
-		return new MemberServiceImpl(memberRepository());
-	}
-	
-	@Bean
-	public OrderService orderService() {
-		return new OrderServiceImpl(
-			memberRepository(),
-			discountPolicy());
-	}
-	
-	@Bean
-	public MemberRepository memberRepository() {
-		return new MemoryMemberRepository();
-	}
-	
-	@Bean
-	public DiscountPolicy discountPolicy() {
-		return new RateDiscountPolicy();
-	}
-}
-```
-
-```java
-public static void main(String[] args) {
-	ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-	MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-	// ...
-}
-```
+- IoC(제어의 역전)은 코드 실행의 주체가 개발자에게서 벗어난다는 뜻이다.
+	- IoC가 되면 개발자가 외부 코드를 사용하는 것이 아니라, 외부 코드가 개발자의 코드를 사용해서 작동하게 된다.
+- DI는 IoC를 구현하는 대표적인 방식이다.
+	- DI는 객체가 다른 의존 객체를 직접 생성하지 않고, 외부에서 주입받도록 설계하는 것이다.
+	- 덕분에 개발자는 의존 객체에 대한 유연한 의존관계를 구성할 수 있다. -> 유지보수성 향상
+- IoC를 구현하는 다른 방법들
+	- Service Locator : 의존 객체를 매번 컨테이너에서 찾는 방법
+	- 콜백 : 특정 시점에 프레임워크가 개발자 콜백을 호출한다.
+- WAS에 서블릿을 끼워넣는 것도 IoC의 일종이라고 볼 수 있다.
