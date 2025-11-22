@@ -1,0 +1,8 @@
+- 빈을 생성하기 위한 정보의 집합이다.
+- 다음 정보들이 담겨있다.
+	- `BeanClassName` : 빈으로 등록할 클래스 이름 (패키지 포함)
+	- `Scope` : [[빈 스코프]]
+	- `LazyInit` : 해당 빈을 미리 생성할지, 필요할 때 생성할지 여부
+	- `ConstructorArgumentValues` : 생성자에 넘겨줄 파라미터들
+	- `PropertyValues` : 세터주입등으로 설정할 값들
+	- `InitMethodName / DestroyMethodName` : [[빈 생명주기 콜백]] 메서드명
