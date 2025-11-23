@@ -1,0 +1,4 @@
+- 예외를 한 곳에서 처리하기 위해 사용한다.
+- 이를 통해 핵심 비즈니스 로직에서 예외처리를 빼낼 수 있고, 코드가 간결해진다.
+- 개념적으로 AOP이지만, 프록시를 활용하는 Spring AOP와는 아예 다른 구현을 가진다.
+- `DispatcherServlet`와 연결된 `ExceptionHandlerExceptionResolver`에서 연결된다.
