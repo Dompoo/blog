@@ -13,7 +13,7 @@
 ## 실용적인 컨트롤러와 서비스에서의 검증
 
 - 컨트롤러
-    - DTO : `@Valid` 를 파라미터에 붙이면 ArgumentResolver 수준에서 검사가 된다.
+    - DTO : `@Valid` 를 파라미터에 붙이면 **ArgumentResolver** 수준에서 검사가 된다.
     - 직접 파라미터(PathVariable, RequestParam) : 별도의 ArgumentResolver에서 알아서 검사한다. 각 애노테이션의 옵션을 설정하자.
 - 서비스
     - `@Valid` 를 파라미터에 붙여도 검사되지 않는다. ArgumentResolver를 타지 않기 때문이다. → `@Validated` 를 사용할 필요가 있다.
