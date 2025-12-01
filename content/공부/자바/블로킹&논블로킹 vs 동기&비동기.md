@@ -8,21 +8,55 @@
 ### 예시
 - **블로킹 동기** : 일반적이고, 직관적이며 고전적인 방식
 ```java
-String content = fileInput.read(); // 읽을 때까지 기다린다.
-System.out.println(content);
+System.out.println("[Start] 커피 주문");
+
+// 1. 결과가 올 때까지 여기서 멈춤 (Blocking)
+// 2. 리턴값을 변수에 직접 받음 (Synchronous)
+String coffee = makeCoffee(); 
+
+System.out.println("[Result] " + coffee + " 수령");
+System.out.println("[End] 퇴장");
 ```
 - **논블로킹 비동기** : 자원을 가장 효율적으로 사용하는 현대적 방식
 ```java
-fetch('https://api.example.com')
-	.then(response => console.log(response)); // 가져오면 추후에 실행된다.
+System.out.println("[Start] 커피 주문");
+
+// 1. 비동기 작업 및 콜백 정의 (Asynchronous)
+// 2. 설정만 하고 즉시 리턴됨 (Non-Blocking)
+CompletableFuture.supplyAsync(this::makeCoffee)
+		.thenAccept(coffee -> System.out.println("[Callback] " + coffee + " 수령"));
+
+// 3. 커피가 안 나왔어도 즉시 다른 작업 수행
+System.out.println("[Working] 다른 작업");
+System.out.println("[End] 퇴장");
 ```
 - **블로킹 비동기** : 비동기의 이점을 사용하지 못하는 비효율적인 상황
 ```java
-Future<String> future = executor.submit(() -> "비동기 작업 결과");
+System.out.println("[Start] 커피 주문");
 
-String result = future.get(); // 비동기 결과를 얻는 과정에서 스레드가 블로킹 된다.
+// 1. 비동기 작업 및 콜백 정의 (Asynchronous)
+CompletableFuture<Void> future = CompletableFuture.supplyAsync(this::makeCoffee)
+		.thenAccept(coffee -> System.out.println("[Callback] " + coffee + " 수령"));
+
+// 2. 비동기 작업이 끝날 때까지 메인 스레드를 강제로 멈춤 (Blocking)
+future.join(); 
+
+System.out.println("[End] 퇴장");
 ```
-- **논블로킹 동기** : 
+- **논블로킹 동기** : 논블로킹으로 즉시 리턴되며 다른 작업을 수행하지만, 작업 완료 여부를 계속 풀링하며 확인
 ```java
-while(true) { // 즉시 리턴됨(Non-blocking). 하지만 데이터가 없으면 null 반환 String data = socket.read(); if (data != null) { 처리(data); break; } // 데이터가 올 때까지 계속 반복해서 확인(Sync) }
+System.out.println("[Start] 커피 주문");
+
+// 1. 작업 요청 후 즉시 Future 객체 받음 (Non-Blocking)
+Future<String> future = executor.submit(() -> makeCoffee());
+
+// 2. 결과가 준비되었는지 루프를 돌며 계속 확인 (Synchronous - Polling)
+while (!future.isDone()) {
+	System.out.println("[Working] 다른 작업");
+}
+
+// 3. 확인 완료 후 결과 조회
+String coffee = future.get();
+System.out.println("[Result] " + coffee + " 수령");
+System.out.println("[End] 퇴장");
 ```
