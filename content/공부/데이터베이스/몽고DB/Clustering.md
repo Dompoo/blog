@@ -12,7 +12,7 @@
     - **Primary** : 쓰기/읽기 등의 작업을 처리한다.
     - **Secondary** : Primary의 데이터를 실시간 복제하는 백업
 - **FailOver** : Primary가 죽으면 Secondary가 자동으로 Primary로 승격되어, SPOF를 해결
-- **Oplog** : ****Primary에서 일어나는 모든 변경을 로그로 기록, Secondary에서는 이를 읽어서 반영한다.
+- **Oplog** : **Primary에서 일어나는 모든 변경을 로그로 기록, Secondary에서는 이를 읽어서 반영한다.**
 
 ![[MongoDB에서 Replica Set_image.png]]
 
