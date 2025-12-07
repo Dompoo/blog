@@ -1,13 +1,14 @@
-# Transparent
+# Baseline
 
-- Theme: Transparent
-- Author: <a href="https://github.com/Oczko24" target="_blank" rel="noopener noreferrer">Oczko24</a>
+- Theme: Baseline
+- Author: <a href="https://github.com/aaaaalexis" target="_blank" rel="noopener noreferrer">Alexis C</a>
+- Support the author: <a href="https://www.buymeacoffee.com/sevenaxis" target="_blank" rel="noopener noreferrer">Donate</a>
 
 ## Preview
 
-[Open live preview (Quartz)](https://quartz-themes.github.io/transparent/)
+[Open live preview (Quartz)](https://quartz-themes.github.io/baseline/)
 
-[Open live preview (Publish)](https://publish.saberzero.one/transparent)
+[Open live preview (Publish)](https://publish.saberzero.one/baseline)
 
 ## Usage (Quartz)
 
@@ -15,7 +16,7 @@
 
 ```yaml
 env:
-  THEME_NAME: transparent
+  THEME_NAME: baseline
 ```
 
 ```yaml
@@ -28,7 +29,7 @@ env:
 ```bash
 curl -s -S -o action.sh https://raw.githubusercontent.com/saberzero1/quartz-themes/master/action.sh
 
-./action.sh transparent
+./action.sh baseline
 ```
 
 ### Manual install
