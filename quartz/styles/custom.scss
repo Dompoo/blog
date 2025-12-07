@@ -2,24 +2,3 @@
 @use "./themes";
 
 // put your custom CSS here!
-
-// 날짜 표시 숨기기 (정렬은 유지)
-.content-meta time,
-.meta time,
-.popover .meta {
-  display: none !important;
-}
-
-// PageList에서 날짜 컬럼 제거
-.section.list-page > ul.section-ul > li {
-  grid-template-columns: 4fr 1fr !important;
-
-  > .meta {
-    display: none !important;
-  }
-}
-
-// RecentNotes에서 날짜 숨기기
-.recent-notes .meta {
-  display: none !important;
-}
